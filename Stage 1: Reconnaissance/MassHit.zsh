@@ -1,5 +1,11 @@
 #!/bin/zsh
 
+if [[ -f `which which` ]]
+	then if [[ ! -f `which zsh` ]]
+ 		then echo -e "Please install zsh"
+   	fi
+fi
+
 echo -ne "Please enter the target site: "
 read RemoteHost
 

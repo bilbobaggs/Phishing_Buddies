@@ -1,0 +1,1 @@
+nmap -sU -sV --top-ports 20 IP_ADDRESS

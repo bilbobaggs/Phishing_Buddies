@@ -1,0 +1,3 @@
+nmap -sC -sV IP_ADDRESS
+nmap -sC -sV -p- IP_ADDRESS
+nmap --script vuln IP_ADDRESS

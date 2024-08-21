@@ -1,0 +1,4 @@
+#!/bin/bash
+
+read -p "Enter the ffuf filename: " ffufFileName
+cat $ffufFileName|grep -v FFUF

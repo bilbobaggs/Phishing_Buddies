@@ -17,7 +17,7 @@ $Arguments = '-Command "$NumberOfUpdates=(Get-WindowsUpdate -WithHidden -Verbose
     $Mesg = (echo "`nKali-Linux will install next, after you enter a user name and password, please type exit to continue the installation.`n")
     Write-Host -Object $Mesg
     pause
-    wsl --install kali-linux
+    wsl --install -d kali-linux
     wsl --set-default kali-linux
     wsl --distribution kali-linux -- touch ~/.hushlogin
     wsl --distribution kali-linux -- sudo touch ~/.hushlogin

@@ -19,12 +19,12 @@ fi
 cd $LocalWorkingDirectory
 
 echo -e "--Let's start with some nmap action--"
-sudo nmap -sS $RemoteHost -vv -T5 -AO -p- -sC -sV -oX $RemoteHost-nmap.xml
+sudo nmap -sS $RemoteHost -vv -T5 -AO -p- -sC -sV -oN $RemoteHost-nmap.txt
 
 echo -e "--It's fuzzing time--"
-ffuf -u http://$RemoteHost/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -ic -c -of csv -o $RemoteHost-ffuf.csv 
+ffuf -u http://$RemoteHost/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of csv -o $RemoteHost-ffuf.csv 
 
-ffuf -u http://$RemoteHost -H "HOST: FUZZ.$RemoteHost" -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -ic -c -of csv -o $RemoteHost-subdomain-ffuf.csv 
+ffuf -u http://FUZZ.$RemoteHost -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt:FUZZ -ic -c -of csv -o $RemoteHost-subdomain-ffuf.csv 
 
 echo -e "--Let's hit it with some nikto action--"
 nikto -host http://$RemoteHost -C all -output $RemoteHost-nikto.xml -Format xml

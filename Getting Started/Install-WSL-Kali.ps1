@@ -1,18 +1,37 @@
 ﻿Clear-Host
-if ((Get-ExecutionPolicy -Scope CurrentUser) -eq "Undefined"){
-    Write-Host -Object "If you are seeing this message please open a PowerShell terminal as Administartor and run the following command before continuing.`n`nSet-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted"
-}
-Import-Module -Name WindowsUpdate
+param (
+	[Init32]Stage = 0
+)
+<#--------------------#
+If you are having trouble running this script due to an execution policy error, please run the following:
 
-$Arguments = '-Command "$NumberOfUpdates=(Get-WindowsUpdate -WithHidden -Verbose|Measure-Object -Line).Lines
-    if ($NumberOfUpdates -ne 0) {
-        $Mesg = (echo "You have $($NumberOfUpdates) update that need to be installed.")
-        Write-Host -Object $Mesg
-        Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -Verbose
-    }
-    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all
-    wsl --set-default-version 2
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+#--------------------#>
+
+if ($Stage -eq $null -or $Stage -eq 0){
+	$Arguments = ' -Command " 
+		Install-Module -Name PSWindowsUpdatea -Force
+		Import-Module -Name WindowsUpdate
+
+    		if ($NumberOfUpdates -ne 0) {
+    		    $Mesg = (echo "You have $($NumberOfUpdates) update that need to be installed.")
+    		    Write-Host -Object $Mesg
+    		    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -Verbose
+    		}"
+	'
+
+	Start-Process -FilePath powershell.exe -ArgumentList $Arguments -Verb RunAs -Wait
+}
+
+if ($Stage -eq 1){
+	$Arguments = '-Command "dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    		dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all"
+	'
+
+	Start-Process -FilePath powershell.exe -ArgumentList $Arguments -Verb RunAs -Wait
+}
+
+$Arguments = '-Command "wsl --set-default-version 2
     wsl --update
     $Mesg = (echo "`nKali-Linux will install next, after you enter a user name and password, please type exit to continue the installation.`n")
     Write-Host -Object $Mesg

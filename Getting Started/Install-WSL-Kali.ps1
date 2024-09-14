@@ -13,6 +13,8 @@ if ($Stage -eq $null -or $Stage -eq 0){
 		Install-Module -Name PSWindowsUpdate -Force
 		Import-Module -Name WindowsUpdate
 
+		$NumberOfUpdates = (Get-Windowsupdate|Measure-Object -Line).Lines
+
     		if ($NumberOfUpdates -ne 0) {
     		    $Mesg = (echo "You have $($NumberOfUpdates) update that need to be installed.")
     		    Write-Host -Object $Mesg

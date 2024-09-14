@@ -10,7 +10,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 
 if ($Stage -eq $null -or $Stage -eq 0){
 	$Arguments = ' -Command " 
-		Install-Module -Name PSWindowsUpdatea -Force
+		Install-Module -Name PSWindowsUpdate -Force
 		Import-Module -Name WindowsUpdate
 
     		if ($NumberOfUpdates -ne 0) {

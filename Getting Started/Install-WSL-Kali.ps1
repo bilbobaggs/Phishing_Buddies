@@ -15,6 +15,7 @@ function Get-ScriptDirectory
   $Invocation = (Get-Variable MyInvocation -Scope 1).Value
   $Invocation.MyCommand.Path
 }
+
 $RunOnceKeyLocation = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce' 
 
 if ($Stage -eq $null -or $Stage -eq 0){
@@ -47,6 +48,8 @@ if ($Stage -eq 1){
     		dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all"
 	'
 
+	$KeyEntry = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoExit -Command `" & $(Get-ScriptDirectory) -Stage 2`""
+	Set-ItemProperty -Path $RunOnceKeyLocation -Name Install-WSL -Value $KeyEntry
 	Start-Process -FilePath powershell.exe -ArgumentList $Arguments -Verb RunAs -Wait
 }
 

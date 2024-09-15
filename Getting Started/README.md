@@ -1,0 +1,1 @@
+This script requires administrative privileges. Additionally, if you want to sright run it, you must first run "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted" in an administrator terminal window.

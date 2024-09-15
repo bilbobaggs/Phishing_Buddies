@@ -1,5 +1,5 @@
 ﻿param (
-	[Init32]$Stage
+	$Stage
 )
 
 Clear-Host
@@ -29,7 +29,7 @@ if ($Stage -eq $null -or $Stage -eq 0){
 		$NumberOfUpdates = (Get-Windowsupdate -MicrosoftUpdate -AcceptAll|Measure-Object -Line).Lines
 
     		if ($NumberOfUpdates -ne 0) {
-    		    $Mesg = (echo "Installing your missing update(s).")
+    		    $Mesg = (echo "Installing your missing update`(s`).")
     		    Write-Host -Object $Mesg
     		    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -Verbose
     		}"

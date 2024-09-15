@@ -8,12 +8,18 @@ If you are having trouble running this script due to an execution policy error, 
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 #--------------------#>
 
+function Get-ScriptDirectory
+{
+  $Invocation = (Get-Variable MyInvocation -Scope 1).Value
+  Split-Path $Invocation.MyCommand.Path
+}
+
 if ($Stage -eq $null -or $Stage -eq 0){
 	$Arguments = ' -Command " 
 		Install-Module -Name PSWindowsUpdate -Force
 		Import-Module -Name WindowsUpdate
 
-		# Going to git it a moment to start up all required services.
+		# Going to give it a moment to start up all required services.
 		Start-Sleep -Seconds 120
 
 		$NumberOfUpdates = (Get-Windowsupdate -MicrosoftUpdate -AcceptAll|Measure-Object -Line).Lines
@@ -26,6 +32,9 @@ if ($Stage -eq $null -or $Stage -eq 0){
 	'
 
 	Start-Process -FilePath powershell.exe -ArgumentList $Arguments -Verb RunAs -Wait
+	$KeyEntry = C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoExit -Command " & $(Get-ScriptDirectory) -Stage 1"
+	$RunOnceKeyLocation = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce' 
+	Set-ItemProperty -Path $RunOnceKeyLocation -Name Install-WSL -Value $KeyEntry
 	Restart-Computer -Force
 }
 

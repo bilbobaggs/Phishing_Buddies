@@ -1,7 +1,9 @@
-﻿Clear-Host
-param (
-	[Init32]Stage = 0
+﻿param (
+	[Init32]$Stage
 )
+
+Clear-Host
+
 <#--------------------#
 If you are having trouble running this script due to an execution policy error, please run the following:
 
@@ -11,8 +13,9 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 function Get-ScriptDirectory
 {
   $Invocation = (Get-Variable MyInvocation -Scope 1).Value
-  Split-Path $Invocation.MyCommand.Path
+  $Invocation.MyCommand.Path
 }
+$RunOnceKeyLocation = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce' 
 
 if ($Stage -eq $null -or $Stage -eq 0){
 	$Arguments = ' -Command " 
@@ -25,20 +28,19 @@ if ($Stage -eq $null -or $Stage -eq 0){
 		$NumberOfUpdates = (Get-Windowsupdate -MicrosoftUpdate -AcceptAll|Measure-Object -Line).Lines
 
     		if ($NumberOfUpdates -ne 0) {
-    		    $Mesg = (echo "You have $($NumberOfUpdates) update that need to be installed.")
+    		    $Mesg = (echo "Installing your missing update(s).")
     		    Write-Host -Object $Mesg
     		    Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -Verbose
     		}"
 	'
 
 	Start-Process -FilePath powershell.exe -ArgumentList $Arguments -Verb RunAs -Wait
-	$KeyEntry = C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoExit -Command " & $(Get-ScriptDirectory) -Stage 1"
-	$RunOnceKeyLocation = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce' 
+	$KeyEntry = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoExit -Command `" & $(Get-ScriptDirectory) -Stage 1`""
 	Set-ItemProperty -Path $RunOnceKeyLocation -Name Install-WSL -Value $KeyEntry
 	Restart-Computer -Force
 }
 
-$Stage = 1
+#$Stage = 1
 
 if ($Stage -eq 1){
 	$Arguments = '-Command "dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -48,7 +50,7 @@ if ($Stage -eq 1){
 	Start-Process -FilePath powershell.exe -ArgumentList $Arguments -Verb RunAs -Wait
 }
 
-$Stage = 2
+#$Stage = 2
 
 if ($Stage -eq 2){
 	$Arguments = '-Command "wsl --set-default-version 2

@@ -97,7 +97,7 @@ To investigate this one, we should open a web browser and head to <http://10.10.
 
 ![](./.images/Screenshot_Chemistry-Home.png)
 
-Which will display the Chemistry CIF Analyzer home page. Clicking around and poking at the code through developer mode did not reveal much other than the ability to register for or login into an account. Additionally, the attempt to complete a directory walk and sub-domain enumeration revealed no further landscape to attack. In this instance burp suite was also no help, so I decided to simply move forward with making an account.
+Which will display the Chemistry CIF Analyzer home page. Clicking around and poking at the code through developer mode did not reveal much other than the ability to register for or login into an account. Additionally, the attempt to complete a directory walk and sub-domain enumeration revealed no further landscape to attack. In this instance burp suite was also no help, so I decided to simply move forward with registering an account.
 
 ![](./.images/Screenshot_Chemistry-Register.png)
 
@@ -105,4 +105,40 @@ Completing the registration takes you immediately to the dashboard.
 
 ![](./.images/Screenshot_Chemistry-Dashboard.png)
 
+Here we gain access to an upload option and a link to an example product. Which is where I started:
 
+```
+data_Example
+_cell_length_a    10.00000
+_cell_length_b    10.00000
+_cell_length_c    10.00000
+_cell_angle_alpha 90.00000
+_cell_angle_beta  90.00000
+_cell_angle_gamma 90.00000
+_symmetry_space_group_name_H-M 'P 1'
+loop_
+ _atom_site_label
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ H 0.00000 0.00000 0.00000 1
+ O 0.50000 0.50000 0.50000 1
+```
+
+So let's feed this back to the CIF analyzer:
+
+![](./.images/Screenshot_Chemistry-Dashboard-Uploaded.png)
+
+![](./.images/Screenshot_Chemistry-Dashboard-View.png)
+
+This appears to be the molecular breakdown of a hydroxide ion, neat! But this is not why I am here today.Time for research, "A CIF file stands for "Crystallographic Information File," which is a standard text format used to store detailed information about a crystal structure, including the positions of atoms within a crystal lattice, commonly used in crystallography and materials science to share and analyze crystal data; essentially, it's a way to digitally represent a crystal's atomic arrangement." 
+Searching for CVEs here is going to be awful so I took another approach, by focusing on the application itself "werkzeug". After some quick googling, I found the source on github <https://github.com/pallets/werkzeug>. The next objective is to find the documentation for version 3.0.3. From here we want to find the release history.
+
+![](./.images/Screenshot_GitHub-Werkzeug_Version.png)
+
+![](./.images/Screenshot_GitHub-Werkzeug_History.png)
+
+Now we know that version 3.0.3 went end of life "Aug 21, 2024". This means that we should be on the look out for exploits with a date after this date as they show still apply to this version. A little more googling later using our new found information takes us to our first CVE and our next section.
+
+## Initial Access or CVE-2024-23334

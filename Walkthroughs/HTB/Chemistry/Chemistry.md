@@ -181,7 +181,7 @@ _space_group_magn.number_BNS  62.448
 _space_group_magn.name_BNS  "P  n'  m  a'  "
 ``` 
 
-Do not forget to change the "<IPADDRESS>/<PORT>" section to meet your needs. Save this as a ".cif", but before uploading, it would be a good idea to start up your listener. To accomplish this open a terminal and ensure that netcat is installed. My typical use is:
+Do not forget to change the '<IPADDRESS>/<PORT>' section to meet your needs. Save this as a ".cif", but before uploading, it would be a good idea to start up your listener. To accomplish this open a terminal and ensure that netcat is installed. My typical use is:
 
 ```
 nc -lvnp <PORT>
@@ -196,4 +196,4 @@ nc -lvnp <PORT>
 
 -p <PORT>: local port number
 
-The "<PORT>" should match the "<PORT>" from your .cif with your carefully crafted exploit in it. 
+The '<PORT>' should match the '<PORT>' from your .cif with your carefully crafted exploit in it. 

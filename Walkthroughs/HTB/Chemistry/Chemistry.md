@@ -93,8 +93,16 @@ Looks like tcp ports 22 and 5000 are open. Usually port 22 is locked down, so le
 ---
 
 ## Werkzeug
-To investage this one, we should open a web browser and head to <http://10.10.11.38:5000>
+To investigate this one, we should open a web browser and head to <http://10.10.11.38:5000>
 
 ![](./.images/Screenshot_Chemistry-Home.png)
 
-Which will display the Chemistry CIF Analyzer home page.
+Which will display the Chemistry CIF Analyzer home page. Clicking around and poking at the code through developer mode did not reveal much other than the ability to make an account. Additionally, the attempt to complete a directory walk and sub-domain enumeration revealed no further landscape to attack. In this instance burp suite was also no help, so I decided to simply move forward with making an account.
+
+![](./.images/Screenshot_Chemistry-Register.png)
+
+Completing the registration takes you immediately to the dashboard. 
+
+![](./.images/Screenshot_Chemistry-Dashboard.png)
+
+

@@ -1,10 +1,14 @@
 # Chemistry
-![](./.images/b8f3d660af2d3ed0929eb119e33526cf.png){width="auto"}
+![](./.images/b8f3d660af2d3ed0929eb119e33526cf.png)
 
 HTB machine link:
 https://app.hackthebox.com/machines/Chemistry
 
 ## Recon
+Let's start by looking for open ports with an nmap scan.
+```
+nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
+```
 
 ```
 # Nmap 7.95 scan initiated Thu Feb 27 05:17:04 2025 as: /usr/lib/nmap/nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
@@ -58,3 +62,6 @@ Read data files from: /usr/share/nmap
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Thu Feb 27 05:18:49 2025 -- 1 IP address (1 host up) scanned in 105.23 seconds
 ```
+Looks like tcp ports 22 and 5000 are open. Usually port 22 is locked down, so let's start by looking at port 5000.
+
+'Werkzeug httpd 3.0.3'

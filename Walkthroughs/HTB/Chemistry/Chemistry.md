@@ -28,7 +28,7 @@ nmap -T5 -A -O -sC -p - -vv -oA <FILE_NAME> 10.10.11.38
 
 -vv: Increases the verbosity level, causing Nmap to print more information about the scan in progress.
 
--oA <FILE_NAME>: Output in the three major formats at once.
+-oA \<FILE\_NAME\> : Output in the three major formats at once.
 
 ```
 # Nmap 7.95 scan initiated Thu Feb 27 05:17:04 2025 as: /usr/lib/nmap/nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
@@ -196,4 +196,14 @@ nc -lvnp <PORT>
 
 -p \<PORT\>: local port number
 
-The "\<PORT\>" should match the "\<PORT\>" from your .cif with your carefully crafted exploit in it.
+The "\<PORT\>" should match the "\<PORT\>" from your .cif with your carefully crafted exploit in it. I saved mine as vuln.cif, please replace that in my example with whatever you named your file. With everything in place, let's go!
+
+Step 1 - upload the payload
+
+![](./.images/Screenshot_Inital-Access_1.png)
+
+Step 2 - click the view button
+
+![](./.images/Screenshot_Inital-Access_2.png)
+
+Step 3 - say, "I'm in"

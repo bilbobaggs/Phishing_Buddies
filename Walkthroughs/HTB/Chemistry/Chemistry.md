@@ -1,13 +1,13 @@
 # Chemistry
 ![](./.images/b8f3d660af2d3ed0929eb119e33526cf.png)
 
-|OS|Linux|
-|---:|:---|
-|Difficulty|Easy|
-|Points|20|
-|Release|19 Jan 2019|
-|IP|10.10.11.38|
-|Link|[Chemistry](https://app.hackthebox.com/machines/Chemistry)|
+|OS        |Linux      |
+|---------:|:----------|
+|Difficulty|Easy       |
+|Points    |20         |
+|Release   |19 Jan 2019|
+|IP        |10.10.11.38|
+|Link      |[Chemistry](https://app.hackthebox.com/machines/Chemistry)|
 
 ## Recon
 Let's start by looking for open ports with an nmap scan.
@@ -84,7 +84,7 @@ OS and Service detection performed. Please report any incorrect results at https
 ```
 
 | Port | Description | Version |
-|------|-------------|---------|
+|:----:|:-----------:|:-------:|
 |  22  |   OpenSSH   |  8.2p1  |
 | 5000 |   Werkzeug  |  3.0.3  |
 
@@ -97,7 +97,7 @@ To investigate this one, we should open a web browser and head to <http://10.10.
 
 ![](./.images/Screenshot_Chemistry-Home.png)
 
-Which will display the Chemistry CIF Analyzer home page. Clicking around and poking at the code through developer mode did not reveal much other than the ability to make an account. Additionally, the attempt to complete a directory walk and sub-domain enumeration revealed no further landscape to attack. In this instance burp suite was also no help, so I decided to simply move forward with making an account.
+Which will display the Chemistry CIF Analyzer home page. Clicking around and poking at the code through developer mode did not reveal much other than the ability to register for or login into an account. Additionally, the attempt to complete a directory walk and sub-domain enumeration revealed no further landscape to attack. In this instance burp suite was also no help, so I decided to simply move forward with making an account.
 
 ![](./.images/Screenshot_Chemistry-Register.png)
 

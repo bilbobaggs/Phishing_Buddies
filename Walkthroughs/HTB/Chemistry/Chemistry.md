@@ -2,7 +2,7 @@
 ![](./.images/b8f3d660af2d3ed0929eb119e33526cf.png)
 
 HTB machine link:
-(https://app.hackthebox.com/machines/Chemistry)
+https://app.hackthebox.com/machines/Chemistry
 
 ## Recon
 Let's start by looking for open ports with an nmap scan.
@@ -72,7 +72,7 @@ Looks like tcp ports 22 and 5000 are open. Usually port 22 is locked down, so le
 
 ## Werkzeug
 To investage this one, we should open a web browser and head to
-(http://10.10.11.38:5000)
-![](./.images/Screenshot_Chemistry-home.png)
+http://10.10.11.38:5000
+![](./.images/Screenshot_Chemistry-Home.png)
 
 This is an update

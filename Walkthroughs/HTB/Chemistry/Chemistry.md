@@ -194,6 +194,6 @@ nc -lvnp <PORT>
 
 -n: numeric-only IP addresses, no DNS
 
--p <PORT>: local port number
+-p \<PORT\>: local port number
 
 The '<PORT>' should match the '<PORT>' from your .cif with your carefully crafted exploit in it. 

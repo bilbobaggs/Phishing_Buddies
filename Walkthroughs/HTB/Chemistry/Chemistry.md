@@ -14,6 +14,21 @@ Let's start by looking for open ports with an nmap scan.
 ```
 nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
 ```
+<p> The nmap options break out to the following:<br>
+
+-T5: Set timing template (higher is faster), 5 is the max.
+
+-A: Enable OS detection, version detection, script scanning, and traceroute.
+
+-O: Enable OS detection.
+
+-sC: Performs a script scan using the default set of scripts.
+
+-p -: This option specifies which ports you want to scan and overrides the default. This variation is shorthand for 1-65535.
+
+-vv: Increases the verbosity level, causing Nmap to print more information about the scan in progress.
+
+-oA chemistry-nmap: Output in the three major formats at once.
 
 ```
 # Nmap 7.95 scan initiated Thu Feb 27 05:17:04 2025 as: /usr/lib/nmap/nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38

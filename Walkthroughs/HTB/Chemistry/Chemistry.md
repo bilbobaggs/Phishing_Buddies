@@ -6,6 +6,7 @@ https://app.hackthebox.com/machines/Chemistry
 
 ## Recon
 
+```
 # Nmap 7.95 scan initiated Thu Feb 27 05:17:04 2025 as: /usr/lib/nmap/nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
 Warning: 10.10.11.38 giving up on port because retransmission cap hit (2).
 Nmap scan report for 10.10.11.38
@@ -56,3 +57,4 @@ HOP RTT     ADDRESS
 Read data files from: /usr/share/nmap
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Thu Feb 27 05:18:49 2025 -- 1 IP address (1 host up) scanned in 105.23 seconds
+```

@@ -2,11 +2,11 @@
 ![](./.images/b8f3d660af2d3ed0929eb119e33526cf.png)
 
 {
-    "OS": "Linux"
-"Difficulty": "Easy"
-"Points": "20"
-Release: "19 Jan 2019"
-"IP": "10.10.11.38"
+    "OS": "Linux",
+"Difficulty": "Easy",
+"Points": "20",
+Release: "19 Jan 2019",
+"IP": "10.10.11.38",
 "Link": [Chemistry](https://app.hackthebox.com/machines/Chemistry)
 }
 

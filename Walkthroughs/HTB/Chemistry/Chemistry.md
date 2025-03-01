@@ -77,4 +77,4 @@ To investage this one, we should open a web browser and head to <http://10.10.11
 
 ![](./.images/Screenshot_Chemistry-Home.png)
 
-Which will display the Chemistry CIF Analyzer home page
+Which will display the Chemistry CIF Analyzer home page.

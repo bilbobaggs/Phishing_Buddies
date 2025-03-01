@@ -90,8 +90,6 @@ OS and Service detection performed. Please report any incorrect results at https
 
 Looks like tcp ports 22 and 5000 are open. Usually port 22 is locked down, so let's start by looking at port 5000.
 
----
-
 ## Werkzeug
 To investigate this one, we should open a web browser and head to <http://10.10.11.38:5000>
 
@@ -181,7 +179,7 @@ _space_group_magn.number_BNS  62.448
 _space_group_magn.name_BNS  "P  n'  m  a'  "
 ``` 
 
-Do not forget to change the "\<IPADDRESS\>/\<PORT\>" section to meet your needs. Save this as a ".cif", but before uploading, it would be a good idea to start up your listener. To accomplish this open a terminal and ensure that netcat is installed. My typical use is:
+Do not forget to change the "\<IPADDRESS\>/\<PORT\>" section to meet your needs. \<IPADDRESS\> will match your ip address and \<PORT\> will match your listening port. Save this as a ".cif", but before uploading, it would be a good idea to start up your listener. To accomplish this open a terminal and ensure that netcat is installed. My typical use is:
 
 ```
 nc -lvnp <PORT>
@@ -207,3 +205,7 @@ Step 2 - click the view button
 ![](./.images/Screenshot_Inital-Access_2.png)
 
 Step 3 - say, "I'm in"
+
+## Getting the user flag
+
+ 

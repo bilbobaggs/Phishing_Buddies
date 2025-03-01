@@ -71,5 +71,6 @@ OS and Service detection performed. Please report any incorrect results at https
 Looks like tcp ports 22 and 5000 are open. Usually port 22 is locked down, so let's start by looking at port 5000.
 
 ## Werkzeug
-To investage this one, we should open a web browser and head to [](http://10.10.11.38:5000)
-![](.images/Screenshot_Chemistry-home.png)
+To investage this one, we should open a web browser and head to
+[](http://10.10.11.38:5000)
+![](./.images/Screenshot_Chemistry-home.png)

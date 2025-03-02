@@ -140,7 +140,7 @@ Searching for CVEs here is going to be awful so I took another approach, by focu
 Now we know that version 3.0.3 went end of life "Aug 21, 2024". This means that we should be on the look out for exploits with a date after this date as they should still apply to this version. A little more googling using our new found information takes us to our first CVE and our next section.
 
 ## Initial Access or CVE-2024-23346
-Eventually I came across this page [CVE-2024-23346](https://github.com/materialsproject/pymatgen/security/advisories/GHSA-vgv8-5cpj-qj2fa). It's a lot confusing, but the best I can understand, there is a flaw in the code of one of the python libraries that was used in the creation of the tool. A carefully crafted cif file can be used to load additional python modules, including the module used to control the OS. Once that is loaded you can use it to execute whatever code you wish.
+Eventually I came across this page [CVE-2024-23346](https://github.com/materialsproject/pymatgen/security/advisories/GHSA-vgv8-5cpj-qj2f). It's a lot confusing, but the best I can understand, there is a flaw in the code of one of the python libraries that was used in the creation of the tool. A carefully crafted cif file can be used to load additional python modules, including the module used to control the OS. Once that is loaded you can use it to execute whatever code you wish.
 
 We can use the following as a template to draft our exploit.
 
@@ -208,4 +208,47 @@ Step 3 - say, "I'm in"
 
 ## Getting the user flag
 
- 
+If you would like a shell that more closely resembles bash, you can run:
+
+```
+python3 -c "import pty;pty.spawn('/bin/bash')"
+export TERM=xterm
+``` 
+
+![](./.images/Screenshot_Inital-Access_3.png)
+
+It's going to look a little weird but you'll at least have most of your terminal functions now. Back to business now.
+Running the whoami command reveals that we are the user app. Next we should run the pwd command to see what directory we are in, which is revealed to be /home/app. The next command we should run is ls -lah. Unfortunately this is where a lot of exploits get dropped, so it's going to be busy. I went through each file and folder one at a time. The instance directory seemed to have the most interesting file, which is the database.db file. Let's see if we can take a look at it...
+The first thing we're going to do is run the file command on the database.db file.
+
+![](./.images/Screenshot_User-Flag_1.png)
+
+Looks like it's an SQLite3 file. Well that's good news, we have the sqlite3 package installed and the internet to figure out how to use it.
+
+![](./.images/Screenshot_User-Flag_2.png)
+
+Looks like we got a lot of usernames and hashed passwords.
+
+```
+1|admin|2861debaf8d99436a10ed6f75a252abf
+2|app|197865e46b878d9e74a0346b6d59886a
+3|rosa|63ed86ee9f624c7b14f1d4f43dc251a5
+4|robert|02fcf7cfc10adc37959fb21f06c6b467
+5|jobert|3dec299e06f7ed187bac06bd3b670ab2
+6|carlos|9ad48828b0955513f7cf0f7f6510c8f8
+7|peter|6845c17d298d95aa942127bdad2ceb9b
+8|victoria|c3601ad2286a4293868ec2a4bc606ba3
+9|tania|a4aa55e816205dc0389591c9f82f43bb
+10|eusebio|6cad48078d0241cca9a7b322ecd073b3
+11|gelacia|4af70c80b68267012ecdac9a7e916d18
+12|fabian|4e5d71f53fdd2eabdbabb233113b5dc0
+13|axel|9347f9724ca083b17e39555c36fd9007
+14|kristel|6896ba7b11a62cacffbdaded457c6d92
+15|konker|d6d67d66a522b447ae2640d8749f0136
+16|hacker|d6a6bc0db10694a2d90e3a69648f3a03
+17|sa|25f9e794323b453885f5181f1b624d0b
+18|hex|51d55a77a4a6f4a1cbd7044b1556e32d
+19|w|f1290186a5d0b1ceab27f4e77c0c5d68
+20|haxorpwnd|482c811da5d5b4bc6d497ffa98491e38
+21|username|5f4dcc3b5aa765d61d8327deb882cf99
+```

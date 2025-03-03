@@ -297,3 +297,13 @@ _laurel:x:997:997::/var/log/laurel:/bin/false
 Looks like "rosa" is the only name on both list, so let's try to crack that one. [CrackStation](https://crackstation.net) here I come.
 
 ![](./.images/Screenshot_User-Flag_3.png)
+
+With that information we can now ssh in as rosa.
+
+
+![](./.images/Screenshot_User-Flag_4.png)
+
+With that, we have the user flag. Let's gooooo!
+
+# Getting the root flag
+

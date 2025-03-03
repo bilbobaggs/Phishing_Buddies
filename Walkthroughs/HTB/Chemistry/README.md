@@ -305,7 +305,7 @@ With that information we can now ssh in as rosa.
 
 With that, we have the user flag. Let's gooooo!
 
-## Getting the root flag
+## Getting the root flag or CVE-2024-23334
 
 After some initial digging around, I didn't find much. But fear not, one thing that I have learned to take a look at is netstat. In newer versions of linux the command has been replaced with ss, so let's run that.
 

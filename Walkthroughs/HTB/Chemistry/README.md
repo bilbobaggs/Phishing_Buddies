@@ -5,7 +5,7 @@
 |---------:|:----------|
 |Difficulty|Easy       |
 |Points    |20         |
-|Release   |19 Jan 2019|
+|Release   |19 Oct 2024|
 |IP        |10.10.11.38|
 |Link      |[Chemistry](https://app.hackthebox.com/machines/Chemistry)|
 

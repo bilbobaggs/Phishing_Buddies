@@ -313,7 +313,7 @@ After some initial digging around, I didn't find much. But fear not, one thing t
 ss -lnpt
 ```
 
-The nmap options break out to the following:
+The ss options break out to the following:
 
 -l: Display only listening sockets (these are omitted by default).
 

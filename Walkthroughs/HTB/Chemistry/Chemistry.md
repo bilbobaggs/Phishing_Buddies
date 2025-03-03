@@ -305,5 +305,5 @@ With that information we can now ssh in as rosa.
 
 With that, we have the user flag. Let's gooooo!
 
-# Getting the root flag
+## Getting the root flag
 

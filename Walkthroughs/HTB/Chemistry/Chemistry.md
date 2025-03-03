@@ -357,7 +357,7 @@ Although, not much we can do here, so let's go back to the information that we p
 
 ![](./.images/Screenshot_Root-Flag_6.png)
 
-Digging around in the github repo, it looks like all we need it the exploit.sh file.
+Digging around in the github repo, it looks like all we need from it is the exploit.sh file.
 
 ```
 #!/bin/bash

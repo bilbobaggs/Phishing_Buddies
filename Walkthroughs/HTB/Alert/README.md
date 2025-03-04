@@ -1,4 +1,6 @@
-![](./.images/HTB-Alert-logo.png)    |    OS    |   Linux   |
+![](./.images/HTB-Alert-logo.png)  
+
+|    OS    |   Linux   |
 |---------:|:----------|
 |Difficulty|    Easy   |
 |  Points  |     20    |

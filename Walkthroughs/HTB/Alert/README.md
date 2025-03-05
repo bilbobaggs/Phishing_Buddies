@@ -101,3 +101,30 @@ Read data files from: /usr/share/nmap
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Mon Mar  3 22:43:44 2025 -- 1 IP address (1 host up) scanned in 8035.42 seconds
 ```
+| Port | Description |Version|
+|:----:|:-----------:|:-----:|
+|  22  |   OpenSSH   | 8.2p1 |
+|  80  |Apache httpd | 2.4.41|
+
+Let's knock out a dirwalk next. You can use whichever tool you like for this, but I will be using ffuf.
+```
+ffuf -u http://alert.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of csv -o alert.htb-ffuf.csv
+```
+
+The options used break out to:
+
+
+```
+FUZZ,url,redirectlocation,position,status_code,content_length,content_words,content_lines,content_type,duration,resultfile,Ffufhash
+uploads,http://alert.htb/uploads,http://alert.htb/uploads/,70,301,308,20,10,text/html; charset=iso-8859-1,55.745519ms,,2183946
+messages,http://alert.htb/messages,http://alert.htb/messages/,630,301,309,20,10,text/html; charset=iso-8859-1,55.796729ms,,21839276
+css,http://alert.htb/css,http://alert.htb/css/,15,301,304,20,10,text/html; charset=iso-8859-1,7.658075689s,,21839f
+server-status,http://alert.htb/server-status,,4227,403,274,20,10,text/html; charset=iso-8859-1,56.774553ms,,218391083
+style,http://alert.htb/css/style,,163,200,3622,676,183,text/css,85.163025ms,,b15a4a3
+```
+Looks like we have a few hits this time:
+- uploads
+- messages
+- css
+- server-status
+- style

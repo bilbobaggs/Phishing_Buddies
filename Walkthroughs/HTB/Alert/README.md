@@ -113,6 +113,20 @@ ffuf -u http://alert.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Con
 
 The options used break out to:
 
+-c: Colorize output.
+
+-ic: Ignore wordlist comments.
+
+-o <file_name>: Write output to file.
+
+-of <format>: Output file format.
+
+-recursion: Scan recursively.
+
+-u <url>: Target URL
+
+-w <wordlist>: Wordlist file path and (optional) keyword separated by colon.
+
 
 ```
 FUZZ,url,redirectlocation,position,status_code,content_length,content_words,content_lines,content_type,duration,resultfile,Ffufhash
@@ -123,8 +137,20 @@ server-status,http://alert.htb/server-status,,4227,403,274,20,10,text/html; char
 style,http://alert.htb/css/style,,163,200,3622,676,183,text/css,85.163025ms,,b15a4a3
 ```
 Looks like we have a few hits this time:
-- uploads
+- css/style
 - messages
-- css
 - server-status
-- style
+- uploads
+
+However sub-domain enumeration reveled nothing for me.
+
+With all of the basics covered let's take a look at the website. At this point let's take a moment to add alert.htb to our /etc/hosts file.
+
+```
+sudo vim /etc/hosts
+```
+![](./.images/Screenshot_Alert-Hosts.png)
+
+Now we head over to [Alert.htb](http://alert.htb)
+
+

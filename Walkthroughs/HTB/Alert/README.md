@@ -153,8 +153,16 @@ sudo vim /etc/hosts
 
 Now we head over to [Alert.htb](http://alert.htb)
 
+![Markdown Viewer](./.images/Screenshot_Alert-Index.png)
 
-![Markdown-Viewer](./.images/Screenshot_Alert-Index.png)
 ![Contact Us](./.images/Screenshot_Alert-Contact.png)
+
 ![About Us](./.images/Screenshot_Alert-About.png)
+
 ![Donate](./.images/Screenshot_Alert-Donate.png)
+
+Looks like we have a few places to attempt out initial foothold, so let's move to that.
+
+## Initial foothold
+
+

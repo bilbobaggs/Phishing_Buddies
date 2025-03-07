@@ -106,7 +106,16 @@ OS and Service detection performed. Please report any incorrect results at https
 |  22  |   OpenSSH   | 8.2p1 |
 |  80  |Apache httpd | 2.4.41|
 
+Based on that output and past experiences on Hack the Box, I'm going to take a moment to add alert.htb to our /etc/hosts file.
+
+```
+sudo vim /etc/hosts
+```
+
+![](./.images/Screenshot_Alert-Hosts.png)
+
 Let's knock out a dirwalk next. You can use whichever tool you like for this, but I will be using ffuf.
+
 ```
 ffuf -u http://alert.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of csv -o alert.htb-ffuf.csv
 ```
@@ -143,13 +152,6 @@ Looks like we have a few hits this time:
 - uploads
 
 However sub-domain enumeration reveled nothing for me.
-
-With all of the basics covered let's take a look at the website. At this point let's take a moment to add alert.htb to our /etc/hosts file.
-
-```
-sudo vim /etc/hosts
-```
-![](./.images/Screenshot_Alert-Hosts.png)
 
 Now we head over to [Alert.htb](http://alert.htb)
 

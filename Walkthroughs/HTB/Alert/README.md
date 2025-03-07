@@ -138,16 +138,19 @@ The options used break out to:
 
 ### FFUF Report
 
-  Command line : `ffuf -u http://alert.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of md -o alert.htb-ffuf.md`
+  Command line : 
+```
+ffuf -u http://alert.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of md -o alert.htb-ffuf.md
+```
   Time: 2025-03-05T06:01:42-06:00
 
-  | FUZZ | URL | Redirectlocation | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash|
-  | :- | :-- | :--------------- | :---- | :------- | :---------- | :------------- | :------------ | :--------- | :----------- | :------------ | :-------- |
-  | uploads | http://alert.htb/uploads | http://alert.htb/uploads/ | 70 | 301 | 308 | 20 | 10 | text/html; charset=iso-8859-1 | 57.086374ms |  |  | 5972b46|
-  | messages | http://alert.htb/messages | http://alert.htb/messages/ | 630 | 301 | 309 | 20 | 10 | text/html; charset=iso-8859-1 | 57.698478ms |  |  | 5972b276|
-  | css | http://alert.htb/css | http://alert.htb/css/ | 15 | 301 | 304 | 20 | 10 | text/html; charset=iso-8859-1 | 3.488934252s |  |  | 5972bf|
-  | server-status | http://alert.htb/server-status |  | 4227 | 403 | 274 | 20 | 10 | text/html; charset=iso-8859-1 | 56.621593ms |  |  | 5972b1083|
-  | style | http://alert.htb/css/style |  | 163 | 200 | 3622 | 676 | 183 | text/css | 56.410961ms |  |  | 3b205a3|
+  |      FUZZ     |              URL               |      Redirectlocation      | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash|
+  | :------------ | :----------------------------- | :------------------------- | :------- | :---------- | :------------- | :------------ | :------------ | :----------- | :------- | :--------- | :---------- | :-----: |
+  |    uploads    |    http://alert.htb/uploads    |  http://alert.htb/uploads/ |       70 |         301 |            308 |            20 |            10 | text/html; charset=iso-8859-1 | 57.086374ms  |  |  | 5972b46 |
+  |    messages   |   http://alert.htb/messages    | http://alert.htb/messages/ |      630 |         301 |            309 |            20 |            10 | text/html; charset=iso-8859-1 | 57.698478ms  |  |  | 5972b276 |
+  |      css      |      http://alert.htb/css      |    http://alert.htb/css/   |       15 |         301 |            304 |            20 |            10 | text/html; charset=iso-8859-1 | 3.488934252s |  |  | 5972bf |
+  | server-status | http://alert.htb/server-status |                            |     4227 |         403 |            274 |            20 |            10 | text/html; charset=iso-8859-1 | 56.621593ms  |  | | 5972b1083 |
+  |     style     |   http://alert.htb/css/style   |                            |      163 |         200 |           3622 |           676 |           183 | text/css                      | 56.410961ms  |  |  | 3b205a3 |
 
 Looks like we have a few hits this time:
 - css/style

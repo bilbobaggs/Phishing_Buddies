@@ -138,12 +138,6 @@ The options used break out to:
 
 ### FFUF Report
 
-  Command line : 
-```
-ffuf -u http://alert.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of md -o alert.htb-ffuf.md
-```
-  Time: 2025-03-05T06:01:42-06:00
-
   |      FUZZ     |              URL               |      Redirectlocation      | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash|
   | :------------ | :----------------------------- | :------------------------- | :------- | :---------- | :------------- | :------------ | :------------ | :----------- | :------- | :--------- | :---------- | :-----: |
   |    uploads    |    http://alert.htb/uploads    |  http://alert.htb/uploads/ |       70 |         301 |            308 |            20 |            10 | text/html; charset=iso-8859-1 | 57.086374ms  |  |  | 5972b46 |

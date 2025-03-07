@@ -161,8 +161,9 @@ Now we head over to [Alert.htb](http://alert.htb)
 
 ![Donate](./.images/Screenshot_Alert-Donate.png)
 
-Looks like we have a few places to attempt out initial foothold, so let's move to that.
+Looks like we have a few places to attempt our initial foothold, so let's move to that.
 
-## Initial foothold
+## Initial Access or Cross Site Scripting
 
+One of the tools to look at for ideas on initial access is the [OWASP Top 10](https://owasp.org/Top10/). In this case [injection](https://owasp.org/Top10/A03_2021-Injection/) seems like the correct tool. Scroll on down to [CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html). After that, we will be looking at example 1, as it actually has the word "alert" in it. The next question, is how do we use it.
 

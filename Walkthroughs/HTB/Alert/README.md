@@ -252,7 +252,7 @@ Neat, now we need to take that over to a [url decoder](https://www.urldecoder.or
 
 ![](./.images/Screenshot_Alert-XSS-9.png)
 
-Okay, that gives us the parameter needed to read files. Let's see if we can craft the payload to exploit a Local File Inclusion (LFI) vulnerability. Let's make a file called LFI.md containing the following:
+Okay, that gives us the parameter needed to read files. Let's see if we can craft a payload to exploit a Local File Inclusion (LFI) vulnerability. Let's make a file called LFI.md containing the following:
 
 ```
 <script>
@@ -322,7 +322,7 @@ david:x:1001:1002:,,,:/home/david:/bin/bash
 </pre>
 ```
 
-Finally, let's see if we can view the .htpasswd file. The .htpassd file that stores user names and their encrypted passwords, used for basic authentication. The .htpasswd file can be placed in any directory, but it's common to store it in a secure location, such as /etc/apache2/ or /usr/local/apache/conf/. If I had to guess, this finally means that we get to use that statistics sub-domain that we found earlier. Let's name our final file EXPLIOT.md, and populate it thusly:
+Finally, let's see if we can view the .htpasswd file. The .htpassd file stores user names and their encrypted passwords, used for basic authentication. The .htpasswd file can be placed in any directory, but it's common to store it in a secure location, such as /etc/apache2/ or /usr/local/apache/conf/. If I had to guess, this finally means that we get to use that statistics sub-domain that we found earlier. Let's name our final file EXPLIOT.md, and populate it thusly:
 
 ```
 <script>

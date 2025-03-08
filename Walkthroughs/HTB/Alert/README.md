@@ -158,6 +158,12 @@ Next is sub domain enumeration.
 ffuf -u http://alert.htb -H "Host:FUZZ.alert.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -fc 301 -c -of md -o alert.htb-subdomain-ffuf.md
 ```
 
+The new options are:
+
+-H <HEADER>: Header "Name: Value", separated by colon.
+
+-fc <STATUS>: Filter [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) from response. Comma separated list of codes and ranges. 
+
 ### FFUF Report
 
   | FUZZ | URL | Redirectlocation | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash |
@@ -181,7 +187,7 @@ Looks like we have a few places to attempt our initial foothold, so let's move t
 
 ## Initial Access or Cross Site Scripting
 
-Let's poke at this "Markdown Viewer" first to see how it works as that is the first page we come to when visiting the address. We can start with a super simple README.md:
+Let's poke at this ["Markdown Viewer"](https://www.markdownguide.org/basic-syntax/) first to see how it works as that is the first page we come to when visiting the address. We can start with a super simple README.md:
 
 
 ```
@@ -229,6 +235,10 @@ Don't forget to change the IP address to match your needs. Before we upload this
 ```
 sudo python3 -m http.server 1337
 ```
+
+The option used here is:
+
+-m <MODULE-NAME>: Searches sys.path for the named module and runs the corresponding .py file  as  a  scrip
 
 Don't forget to make the port match the one in the XSS.md file.
 
@@ -369,6 +379,12 @@ Looks like we can try using md5. Let's just toss it to john and see what happens
 john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt htpasswd
 ```
 
+The options used here break out to:
+
+--fork=<NUMBER>: Fork NUMBER processes
+
+--wordlist=<PATH TO WORDLIST>: These are used to enable the wordlist mode, reading words from FILE.
+
 ![](./.images/Screenshot_Alert-John-2.png)
 
 Well that was a bust. But there is also a MD5crypt-Long option.
@@ -376,6 +392,10 @@ Well that was a bust. But there is also a MD5crypt-Long option.
 ```
 john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt --format=md5crypt-long htpasswd
 ```
+
+The options used here break out to:
+
+--format=<HASH TYPE>: Force hash of type NAME. The supported formats can be seen with --list=formats and --list=subformats.
 
 Here we go:
 

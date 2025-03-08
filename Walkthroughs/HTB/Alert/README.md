@@ -355,7 +355,7 @@ And that looks like a username and a password hash:
 </pre>
 ```
 
-Let's place these credentials in a file called htpasswd. Then we can feed that to john the ripper. Don't forget to remove the '<pre>' and '</pre>' tags. But first let's try and ID the hash.
+Let's place these credentials in a file called htpasswd. Then we can feed that to john the ripper. Don't forget to remove the '\<pre\>' and '\</pre\>' tags. But first let's try and ID the hash.
 
 ```
 hashid '$apr1$bMoRBJOg$igG8WBtQ1xYDTQdLjSWZQ/'

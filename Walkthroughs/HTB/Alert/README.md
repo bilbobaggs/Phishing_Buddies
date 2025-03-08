@@ -421,4 +421,4 @@ Next...
 
 ## Getting the Root Flag
 
-![](https://tenor.com/view/dbz-gif-10798388165781977248)
+![](https://media.tenor.com/lduU0xA3eKAAAAAM/dbz.gif)

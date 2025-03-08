@@ -160,9 +160,9 @@ ffuf -u http://alert.htb -H "Host:FUZZ.alert.htb" -w /usr/share/seclists/Discove
 
 ### FFUF Report
 
-  | FUZZ | URL | Redirectlocation | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash|
-  | :- | :-- | :--------------- | :---- | :------- | :---------- | :------------- | :------------ | :--------- | :----------- | :------------ | :-------- |
-  | statistics | http://alert.htb |  | 1261 | 401 | 467 | 42 | 15 | text/html; charset=iso-8859-1 | 274.901418ms |  |  | 540394ed|
+  | FUZZ | URL | Redirectlocation | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash |
+  | :--- | :-- | :--------------- | :------- | :---------- | :------------- | :------------ | :------------ | :----------- | :------- | :--------- | :---------- | -------- |
+  | statistics | http://alert.htb |          |     1261    |       401      |      467      |       42      |      15      | text/html; charset=iso-8859-1 | 274.901418ms |  |  | 540394ed |
 
 The new addition here is:
 - statistics.alert.htb

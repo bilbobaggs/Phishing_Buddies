@@ -193,8 +193,8 @@ Well, that worked as intended. One of the tools to look at for ideas on initial 
 <script>alert('XSS')</script>
 ```
 
-![](./.images/Screenshot_Alert-MD-1.png)
-
 ![](./.images/Screenshot_Alert-MD-4.png)
 
 ![](./.images/Screenshot_Alert-MD-5.png)
+
+![](./.images/Screenshot_Alert-MD-6.png)

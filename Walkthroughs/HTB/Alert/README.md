@@ -179,7 +179,22 @@ Which will show as the following:
 
 # This is a test
 
+After that is made, let's upload that file.
 
+![](./.images/Screenshot_Alert-MD-1.png)
 
-One of the tools to look at for ideas on initial access is the [OWASP Top 10](https://owasp.org/Top10/). In this case [injection](https://owasp.org/Top10/A03_2021-Injection/) seems like the correct tool. Scroll on down to [CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html). After that, we will be looking at example 1, as it is the first place to have the word "alert" in it. The next question, is how do we use it.
+![](./.images/Screenshot_Alert-MD-2.png)
 
+![](./.images/Screenshot_Alert-MD-3.png)
+
+Well, that worked as intended. One of the tools to look at for ideas on initial access is the [OWASP Top 10](https://owasp.org/Top10/). In this case [injection](https://owasp.org/Top10/A03_2021-Injection/) seems like the correct tool. Scroll on down to [CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html). After that, we will be looking at example 1, as it is the first place to have the word "alert" in it. The next question, is how do we use it. Additionally, markdown viewers are capable of processing html. So let's test one of the examples from the OWASP site. We'll make a text called 'Alert.md'. It will contain that following:
+
+```
+<script>alert('XSS')</script>
+```
+
+![](./.images/Screenshot_Alert-MD-1.png)
+
+![](./.images/Screenshot_Alert-MD-4.png)
+
+![](./.images/Screenshot_Alert-MD-5.png)

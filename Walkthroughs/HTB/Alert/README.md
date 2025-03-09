@@ -381,9 +381,9 @@ john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt htpasswd
 
 The options used here break out to:
 
---fork=\<NUMBER\>: Fork NUMBER processes
+--fork=\<*NUMBER*\>: Fork NUMBER processes
 
---wordlist=\<PATH TO WORDLIST\>: These are used to enable the wordlist mode, reading words from FILE.
+--wordlist=\<*PATH TO WORDLIST*\>: These are used to enable the wordlist mode, reading words from FILE.
 
 ![](./.images/Screenshot_Alert-John-2.png)
 
@@ -395,7 +395,7 @@ john --fork=40 --wordlist=/usr/share/wordlists/rockyou.txt --format=md5crypt-lon
 
 The options used here break out to:
 
---format=\<HASH TYPE\>: Force hash of type NAME. The supported formats can be seen with --list=formats and --list=subformats.
+--format=\<*HASH TYPE*\>: Force hash of type NAME. The supported formats can be seen with --list=formats and --list=subformats.
 
 Here we go:
 

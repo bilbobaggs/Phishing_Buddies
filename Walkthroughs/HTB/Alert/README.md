@@ -126,15 +126,15 @@ The options used break out to:
 
 -ic: Ignore wordlist comments.
 
--o \<file_name\>: Write output to file.
+-o \<*FILE_NAME*\>: Write output to file.
 
--of \<format\>: Output file format.
+-of \<*FORMAT*\>: Output file format.
 
 -recursion: Scan recursively.
 
--u \<url\>: Target URL
+-u \<*URL*\>: Target URL
 
--w \<wordlist\>: Wordlist file path and (optional) keyword separated by colon.
+-w \<*WORDLIST*\>: Wordlist file path and (optional) keyword separated by colon.
 
 ### FFUF Report
 
@@ -160,9 +160,9 @@ ffuf -u http://alert.htb -H "Host:FUZZ.alert.htb" -w /usr/share/seclists/Discove
 
 The new options are:
 
--H \<HEADER\>: Header "Name: Value", separated by colon.
+-H \<*HEADER*\>: Header "Name: Value", separated by colon.
 
--fc \<STATUS\>: Filter [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) from response. Comma separated list of codes and ranges. 
+-fc \<*STATUS*\>: Filter [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) from response. Comma separated list of codes and ranges. 
 
 ### FFUF Report
 
@@ -238,7 +238,7 @@ sudo python3 -m http.server 1337
 
 The option used here is:
 
--m \<MODULE-NAME\>: Searches sys.path for the named module and runs the corresponding .py file  as  a  scrip
+-m \<*MODULE-NAME*\>: Searches sys.path for the named module and runs the corresponding .py file  as  a  scrip
 
 Don't forget to make the port match the one in the XSS.md file.
 

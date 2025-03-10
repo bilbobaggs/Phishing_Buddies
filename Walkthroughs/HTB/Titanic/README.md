@@ -20,8 +20,10 @@ Let's start by looking for open ports with an nmap scan.
 nmap  -A -sC -sV -p - -vv -oA titanic-nmap 10.10.11.55
 ```
 
-For a break down of most of the options here please take a look at the Alert walkthrough. The only new option is 
+For a break down of most of the options here please take a look at the Alert walkthrough.
 
 and here is the report:
 
+```
+This is new commands
 ```

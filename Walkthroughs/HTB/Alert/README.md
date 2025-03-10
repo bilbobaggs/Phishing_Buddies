@@ -542,4 +542,4 @@ cat /root/root.txt
 
 ![](./.images/Screenshot_Alert-Root-16.png)
 
-You're welcome.
+Please don't forget to remove any files that you may have made on the box before you close out of all of your connections.

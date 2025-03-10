@@ -421,4 +421,46 @@ Next...
 
 ## Getting the Root Flag
 
+Now that we are in, now what. Let's start with a simple look around. I typically like to start with Privilege Escalation Awesome Scripts SUITE ([PEASS-ng](https://github.com/peass-ng/PEASS-ng)) package. Since this is a linux box, linpeas it is. Since I know we can ssh, I can use scp to move it to the victom box like so:
+
+```
+scp ./linpeas.sh albert@alert.htb:/home/albert
+```
+!{}(./.images/Screenshot_Alert-Root-1.png)
+
+Then ssh back in and you can run linpeas like so:
+
+```
+./linpeas.sh -aLqN |tee alert.htb_linpeas.txt
+```
+![](./.images/Screenshot_Alert-Root-2.png)
+
+-a: Perform all checks: 1 min of processes, su brute, and extra checks.
+
+-L: Force linpeas execution 
+
+-q: Do not show banner
+
+-N: Do not use colours
+
+The tee command allows you to write to 2 places at once. In this case, the terminal and the alert.htb_linpeas.txt file. Also, holy cow that is a lot of data. Reviewing the data form that file reveals that there is a web server open on port 8080 and files for a web server in the /opt directory. Lst's start by seeing who is running that server on port 8080. for that we can user the ps command.
+
+```
+ps -auxf|less
+```
+
+These options break out to:
+
+-a: Select all processes except both session leaders (see getsid(2)) and processes not associated with a terminal.
+
+-u: Select by effective user ID (EUID) or name.
+
+-x: 
+
+-f:
+
+![](./.images/Screenshot_Alert-Root-3.png)
+
+Huzzah, it's run by root. Fantastic!
+
 ![](https://media.tenor.com/lduU0xA3eKAAAAAM/dbz.gif)

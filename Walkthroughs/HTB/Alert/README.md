@@ -443,7 +443,7 @@ Then ssh back in and you can run linpeas like so:
 
 -N: Do not use colours
 
-The tee command allows you to write to 2 places at once. In this case, the terminal and the alert.htb_linpeas.txt file. Also, holy cow that is a lot of data. Reviewing the data form that file reveals that there is a web server open on port 8080 and files for a web server in the /opt directory. Lst's start by seeing who is running that server on port 8080. for that we can user the ps command.
+The tee command allows you to write to 2 places at once. In this case, the terminal and the alert.htb_linpeas.txt file. Also, holy cow that is a lot of data. Reviewing the data from that file reveals that there is a web server open on port 8080 and files for a web server in the /opt directory. Let's start by seeing who is running that server on port 8080. for that we can user the ps command.
 
 ```
 ps -auxf|less
@@ -455,12 +455,91 @@ These options break out to:
 
 -u: Select by effective user ID (EUID) or name.
 
--x: 
+x: Lift the BSD-style "must have a tty" restriction, which is imposed upon the set of all processes when some BSD-style (without "-") options are used or when the ps personality setting is BSD-like.
 
--f:
+f: ASCII art process hierarchy (forest).
 
 ![](./.images/Screenshot_Alert-Root-3.png)
 
 Huzzah, it's run by root. Fantastic!
 
-![](https://media.tenor.com/lduU0xA3eKAAAAAM/dbz.gif)
+Next let's take a look at the sockets and see what they can see. The old tool for this is netstat, most distros are moving to a tool call ss. Ss can display more TCP and state information than other tools.
+
+```
+ss -ltnp
+```
+
+These options break out to:
+
+-l: Display only listening sockets (these are omitted by default).
+
+-t: Display TCP sockets.
+
+-n: Do not try to resolve service names.
+
+-p: Show process using socket.
+
+![](./.images/Screenshot_Alert-Root-4.png)
+
+Okay, okay, not much more gained from that, let's try grabbing the headers from that port as it looks like a php server.
+
+```
+curl --head http://127.0.0.1:8080
+```
+
+![](./.images/Screenshot_Alert-Root-5.png)
+
+Not much more there, let's just see if we can browse there. We will start by opening a ssh connection in as a listening port so that we can use it as a proxy.
+
+```
+ssh -L 9999:localhost:8080 albert@alert.htb
+```
+
+![](./.images/Screenshot_Alert-Root-6.png)
+
+Okay head to your web browser of choice and navigate to http://127.0.0.1:9999.
+
+![](./.images/Screenshot_Alert-Root-7.png)
+
+Hmmmm, looks like a website for monitoring other websites. Digging through all of the data that we pulled, it looks like this thing lives at /opt/website-monitor/. Let's head that way and see what we can see.
+
+![](./.images/Screenshot_Alert-Root-8.png)
+
+After running cd, I ran ls -lah to look at the permissions on the files while I was in there. After that I ran the id command which tells me about the user that I am currently logged in as. It looks like my user \(Albert\) is a part of the management group. Additionally, the config folder has permissions that allow the management group to write to it. So let's see what is in there.
+
+
+![](./.images/Screenshot_Alert-Root-9.png)
+
+Well now, what is this?
+
+![](./.images/Screenshot_Alert-Root-10.png)
+
+This looks like the optimal place to start a reverse shell. For that I'm going to go to the [Online - Reverse Shell Generator](https://www.revshells.com/). I will configure the options so that they generate a php script for Linux to execute a bash reverse shell.
+
+![](./.images/Screenshot_Alert-Root-11.png)
+
+There are a lot of arrows, but the page is pretty easy to figure out. Make sure to make the IP address and port match your needs. When you are done. Click the copy button for the listener, the part that say nc -lvnp 1337 in it. We're going to past that in a different terminal. One without ssh running in it.
+
+![](./.images/Screenshot_Alert-Root-12.png)
+
+Then, inside our ssh connection we'll want to make a file called revshell.php containing the text from the other copy button.
+
+![](./.images/Screenshot_Alert-Root-13.png)
+
+Now head back to your web browser of choice and navigate to http://127.0.0.1:9999/config/revshell.php.
+
+![](./.images/Screenshot_Alert-Root-14.png)
+
+Well that looks good. We should have a reverse shell as root now.
+
+![](./.images/Screenshot_Alert-Root-15.png)
+
+Fantastic! With a quick pwd we see that we are in the root or (/) directory. Which means that we'll need to specify the /root directory as we cat the root flag.
+
+```
+cat /root/root.txt
+```
+
+![](./.images/Screenshot_Alert-Root-16.png)
+
+You're welcome.

@@ -431,7 +431,7 @@ scp ./linpeas.sh albert@alert.htb:/home/albert
 Then ssh back in and you can run linpeas like so:
 
 ```
-./linpeas.sh -aLqN |tee alert.htb_linpeas.txt
+./linpeas.sh -aLqN|tee alert.htb_linpeas.txt
 ```
 ![](./.images/Screenshot_Alert-Root-2.png)
 
@@ -518,7 +518,7 @@ This looks like the optimal place to start a reverse shell. For that I'm going t
 
 ![](./.images/Screenshot_Alert-Root-11.png)
 
-There are a lot of arrows, but the page is pretty easy to figure out. Make sure to make the IP address and port match your needs. When you are done. Click the copy button for the listener, the part that say nc -lvnp 1337 in it. We're going to past that in a different terminal. One without ssh running in it.
+There are a lot of arrows, but the page is pretty easy to figure out. Make sure to make the IP address and port match your needs. When you are done. Click the copy button for the listener, the part that says nc -lvnp 1337 in it. We're going to past that in a different terminal. One without ssh running in it.
 
 ![](./.images/Screenshot_Alert-Root-12.png)
 

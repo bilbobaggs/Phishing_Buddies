@@ -426,7 +426,7 @@ Now that we are in, now what. Let's start with a simple look around. I typically
 ```
 scp ./linpeas.sh albert@alert.htb:/home/albert
 ```
-!{}(./.images/Screenshot_Alert-Root-1.png)
+![](./.images/Screenshot_Alert-Root-1.png)
 
 Then ssh back in and you can run linpeas like so:
 

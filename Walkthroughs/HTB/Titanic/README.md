@@ -108,9 +108,11 @@ ffuf -u http://titanic.htb -H Host:FUZZ.titanic.htb -w /usr/share/seclists/Disco
 
 | FUZZ | URL | Redirectlocation | Position | Status Code | Content Length | Content Words | Content Lines | Content Type | Duration | ResultFile | ScraperData | Ffufhash |
 | :--- | :-- | :--------------- | :------- | :---------- | :------------- | :------------ | :------------ | :----------- | :------- | :--------- | :---------- | :------: |
-|  dev | http://titanic.htb |   |     19   |     200     |      13982     |      1107     |      276      | text/html; charset=utf-8 | 5.150837676s |  |       |  123b413 |
+|  dev | http://dev.titanic.htb |   |  19  |     200     |      13982     |      1107     |      276      | text/html; charset=utf-8 | 5.150837676s |  |       |  123b413 |
 
-By jove we got one, now we have to do more enumeration.
+By jove we got one, now we have to do more enumeration and to make another update to our /etc/hosts file.
+
+![](./.images/Screenshot-Titanic_Hosts-2.png)
 
 ```
 ffuf -u http://dev.titanic.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-directories.txt:FUZZ -recursion -ic -c -of md -o dev.titanic.htb-ffuf.md

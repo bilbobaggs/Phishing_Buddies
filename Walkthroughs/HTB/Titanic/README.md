@@ -243,7 +243,7 @@ Also, we are starting to build a basic file structure for our target box. Review
 
 ![](./.images/Screenshot-Titanic_Initial-18.png)
 
-While there is some possible some useful information here, at our current junction, not so much.
+While there maybe some useful information here, at our current junction, not so much.
 
 ![](./.images/Screenshot-Titanic_Initial-19.png)
 
@@ -340,13 +340,6 @@ Lining the hashes up looks kind of like:
 |  developer  |e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56\|8bf3e3452b78544f8bee9400d6936d34|i/PjRSt4VE+L7pQA1pNtNA==:5THTmJRhN7rqcO1qaApUOF7P8TEwnAvY8iXyhEBrfLyO/F2+8wvxaCYZJjRE6llM+1Y=|25282528|
 |   username  |f705318c9983a02e5bc35b9ad752318022e1447a7429c5b7eb7c1fc0fc7300e769f6e21fe1ab23c61c52212ed595334012dd\|9b4ed59164c98d94917baa2916b54964|m07VkWTJjZSRe6opFrVJZA==:9wUxjJmDoC5bw1ua11IxgCLhRHp0KcW363wfwPxzAOdp9uIf4asjxhxSIS7VlTNAEt0=|password|
 
-I'd say two out of three is not bad. Going back to the etc/passwd file it mentions that there is a user named developer with a login. So we can try to ssh in.
-
-```
-ssh developer@titanic.htb
-```
-
-![]()
 I'd say two out of three is not bad. Going back to the etc/passwd file it mentions that there is a user named developer with a login. So we can try to ssh in.
 
 ```

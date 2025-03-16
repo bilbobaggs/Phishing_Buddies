@@ -362,6 +362,10 @@ cat users.txt
 
 ![](./.images/Screenshot-Titanic_User-1.png)
 
+Although, proving that my way is not always the only way, it is also possible to grab the use flag way back [here](#initial-access-with-lfi), like so:
+
+![](./.images/Screenshot-Titanic_User-2.png)
+
 ## Getting the root flag
 
 ![](https://media1.tenor.com/m/lduU0xA3eKAAAAAd/dbz.gif)

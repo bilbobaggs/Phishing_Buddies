@@ -127,4 +127,116 @@ ffuf -u http://dev.titanic.htb/FUZZ -w /usr/share/wordlists/seclists/Discovery/W
 | nano | http://dev.titanic.htb/nano |  | 9282 |   200   |      19844     |       1619    |       417     | text/html; charset=utf-8 | 105.865781ms |  |       |243432442 |
 | Developer | http://dev.titanic.htb/Developer |  | 9751 | 200 |   25151  |       2139    |       506     | text/html; charset=utf-8 | 100.392759ms |  |       |243432617 |
 
+![](./.images/Screenshot-Titanic_Recon-1.png)
 
+![](./.images/Screenshot-Titanic_Recon-2.png)
+
+![](./.images/Screenshot-Titanic_Recon-3.png)
+
+![](./.images/Screenshot-Titanic_Recon-4.png)
+
+![](./.images/Screenshot-Titanic_Recon-5.png)
+
+![](./.images/Screenshot-Titanic_Recon-6.png)
+
+Well there is a lot going on here, but let's see what we can do with this.
+
+## Initial Access with LFI
+
+After some digging around I stumbled across the following code:
+
+![](./.images/Screenshot-Titanic_Initial-1.png)
+
+It is in the app.py for the flask-app. I took this as a opportunity to hone my burp suite skills. So, off to burp suite for a little bit. Once there, open a browser and head to titanic.htb.
+
+![](./.images/Screenshot-Titanic_Initial-2.png)
+
+![](./.images/Screenshot-Titanic_Initial-3.png)
+
+Now let's turn "Intercept On":
+
+![](./.images/Screenshot-Titanic_Initial-4.png)
+
+... and see what happens when we book a cruse on the legendary titanic:
+
+![](./.images/Screenshot-Titanic_Initial-5.png)
+
+![](./.images/Screenshot-Titanic_Initial-6.png)
+
+![](./.images/Screenshot-Titanic_Initial-7.png)
+
+Well now, that's the good stuff. I'm going to send this to the repeater function.
+
+![](./.images/Screenshot-Titanic_Initial-8.png)
+
+![](./.images/Screenshot-Titanic_Initial-9.png)
+
+Then forward the request on and see what comes back.
+
+![](./.images/Screenshot-Titanic_Initial-10.png)
+
+![](./.images/Screenshot-Titanic_Initial-11.png)
+
+![](./.images/Screenshot-Titanic_Initial-12.png)
+
+While interesting, this file is not very fun. Let's see if this works how we think it does. According to the flask-app, tickets are generated in the tickets folder. So, if we go one folder up we should be able to grab the app.py file. So let's give that a try. We'll use burp suite's repeater function for our next move, don't forget to turn off intercept.
+
+![](./.images/Screenshot-Titanic_Initial-13.png)
+
+![](./.images/Screenshot-Titanic_Initial-14.png)
+
+![](./.images/Screenshot-Titanic_Initial-15.png)
+
+Success!!! Sweet, Let's try grabbing a more meaningful file, like the /etc/passwd file. We have to do a little guess work here, but there is a chance that the '/' directory should be about two or three steps up. Let's see if we can find it.
+
+![](./.images/Screenshot-Titanic_Initial-16.png)
+
+![](./.images/Screenshot-Titanic_Initial-17.png)
+
+Oh yeah, that's the good stuff.
+
+```
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:104::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:104:105:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+pollinate:x:105:1::/var/cache/pollinate:/bin/false
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+syslog:x:107:113::/home/syslog:/usr/sbin/nologin
+uuidd:x:108:114::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:109:115::/nonexistent:/usr/sbin/nologin
+tss:x:110:116:TPM software stack,,,:/var/lib/tpm:/bin/false
+landscape:x:111:117::/var/lib/landscape:/usr/sbin/nologin
+fwupd-refresh:x:112:118:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+usbmux:x:113:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+developer:x:1000:1000:developer:/home/developer:/bin/bash
+lxd:x:999:100::/var/snap/lxd/common/lxd:/bin/false
+dnsmasq:x:114:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+_laurel:x:998:998::/var/log/laurel:/bin/false
+```
+
+Looks like we only have two users to target:
+
+- root
+- developer
+
+Also, we are starting to build a basic file structure for our target box. 

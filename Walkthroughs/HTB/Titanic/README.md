@@ -324,7 +324,7 @@ cat users1-desalted.txt|tail -3>users1-desalted1.txt
 Now for the hashcat
 
 ```
-hashcat -m 10900 users1-decoded1.txt /usr/share/wordlists/rockyou.txt
+hashcat -m 10900 users1-desalted1.txt /usr/share/wordlists/rockyou.txt
 ```
 
 ![](./.images/Screenshot-Titanic_Initial-30.png)

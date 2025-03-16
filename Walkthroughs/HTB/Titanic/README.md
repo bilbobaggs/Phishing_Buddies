@@ -321,7 +321,7 @@ cat users1-desalted.txt|tail -3>users1-desalted1.txt
 
 ![](./.images/Screenshot-Titanic_Initial-29.png)
 
-Now for the hashcat
+Now for hashcat...
 
 ```
 hashcat -m 10900 users1-desalted1.txt /usr/share/wordlists/rockyou.txt

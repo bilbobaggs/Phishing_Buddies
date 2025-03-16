@@ -257,7 +257,7 @@ Believe it or not, the http status code of 500 tells us that we are on the right
 
 ![](./.images/Screenshot-Titanic_Initial-21.png)
 
-Win again, I have to admit, I got a little stuck at this point. So I looked up a walk though, [HTB Titanic Writeup | Step-by-Step Walkthrough | InfoSec Write-ups](https://infosecwriteups.com/hackthebox-titanic-writeup-5f549dd90f38?gi=5bca4b861560). All good though, we are all here to learn. Anyway, this person found that there we were so close, the database is a little bit further at gitea/gitea.db.
+Win again, I have to admit, I got a little stuck at this point. So I looked up a walk though, [HTB Titanic Writeup | Step-by-Step Walkthrough | InfoSec Write-ups](https://infosecwriteups.com/hackthebox-titanic-writeup-5f549dd90f38?gi=5bca4b861560). All good though, we are all here to learn. Anyway, we were so close, the database is a little bit further located at gitea/gitea.db.
 
 ![](./.images/Screenshot-Titanic_Initial-22.png)
 

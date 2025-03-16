@@ -161,6 +161,8 @@ Now let's turn "Intercept On":
 
 ![](./.images/Screenshot-Titanic_Initial-6.png)
 
+Then click the forward button.
+
 ![](./.images/Screenshot-Titanic_Initial-7.png)
 
 Well now, that's the good stuff. I'm going to send this to the repeater function.
@@ -185,7 +187,7 @@ While interesting, this file is not very fun. Let's see if this works how we thi
 
 ![](./.images/Screenshot-Titanic_Initial-15.png)
 
-Success!!! Sweet, Let's try grabbing a more meaningful file, like the /etc/passwd file. We have to do a little guess work here, but there is a chance that the '/' directory should be about two or three steps up. Let's see if we can find it.
+Success!!! Sweet, let's try grabbing a more meaningful file, like the /etc/passwd file. We have to do a little guess work here, but there is a chance that the '/' directory should be about two or three steps up. Let's see if we can find it.
 
 ![](./.images/Screenshot-Titanic_Initial-16.png)
 

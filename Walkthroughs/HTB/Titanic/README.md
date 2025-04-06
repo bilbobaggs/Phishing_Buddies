@@ -368,6 +368,24 @@ Although, proving that my way is not always the only way, it is also possible to
 
 ## Getting the root flag
 
-I usually like to kick things off with with some [linpeas](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) from the peass-ng pack.
+I usually like to kick things off with with some [linpeas](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) from the peass-ng pack. That produces a lot of output thought, so I'll let you run that for yourself.  After it completes I will take quite a bit of time going thourgh the output, in this case I found a diretory under /opt called scripts, so I'll start there. The full path is /opt/scripts/. Let's go and see what's there...
+
+```
+cd /opt/scripts/
+```
+![](.images/Screenshot-Titanic_Root-1.png)
+
+Once there, looks like a have a script called identify_images.sh, opening that up looks like a script that does a few things:
+
+```
+cd /opt/app/static/assets/images
+truncate -s 0 metadata.log
+find /opt/app/static/assets/images/ -type f -name "*.jpg" | xargs /usr/bin/magick identify >> metadata.log
+```
+The first line is easy, change directory to /opt/app/static/assets/images.
+
+The second line is used to shrink metadata.log to a size of zero.
+
+The third line has a little bit going on. First it's going to look in the /opt/app/static/assets/images folder for any file with a name that ends with '.jpg'. Anything that is found will be passwd to magick command which will determine what the metadata of of the file contains and finally push what it reads to the metadata.log file.
 
 ![](https://media1.tenor.com/m/lduU0xA3eKAAAAAd/dbz.gif)

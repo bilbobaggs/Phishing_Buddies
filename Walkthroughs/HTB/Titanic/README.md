@@ -368,6 +368,6 @@ Although, proving that my way is not always the only way, it is also possible to
 
 ## Getting the root flag
 
-I usually like to kick things off with with some [linpeas]{https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS} from the peass-ng pack.
+I usually like to kick things off with with some [linpeas](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) from the peass-ng pack.
 
 ![](https://media1.tenor.com/m/lduU0xA3eKAAAAAd/dbz.gif)

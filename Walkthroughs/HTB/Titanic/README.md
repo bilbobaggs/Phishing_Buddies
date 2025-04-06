@@ -402,11 +402,11 @@ After about an hour of trying to embed malicious code into an image I decided th
 magick --version
 ```
 
-![](.images/Screenshot--Titanic_Root-3.png)
+![](.images/Screenshot-Titanic_Root-3.png)
 
 Let's look that guy up...
 
-![](.images/Screenshot--Titanic_Root-4.png)
+![](.images/Screenshot-Titanic_Root-4.png)
 
 [](https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8)
 
@@ -445,7 +445,7 @@ cp libxcb.so.1 /opt/app/static/assets/images/
 ```
 Don't forget to monitor that metadata.log file.
 
-![](.images/Screenshot--Titanic_Root-5.png)
+![](.images/Screenshot-Titanic_Root-5.png)
 
 Would you looky there, it worked. That means that there is only a simple fix to finish the box up from here.
 
@@ -465,6 +465,6 @@ cp libxcb.so.1 /opt/app/static/assets/images/
 
 Again, don't forget to monitor the metadata.log file.
 
-![](.images/Screenshot--Titanic_Root-6.png)
+![](.images/Screenshot-Titanic_Root-6.png)
 
 ![](https://media.tenor.com/OPgiL2-74YwAAAAM/youre-welcome-monday.gif)

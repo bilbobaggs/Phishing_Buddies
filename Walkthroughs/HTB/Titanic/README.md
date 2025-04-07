@@ -425,7 +425,7 @@ __attribute__((constructor)) void init(){
 EOF
 ```
 
-gcc or the GNU Compiler Collection is part of the GNU toolchain and includes front ends for C and C++. To learn more about it please go to their [homepage](https://gcc.gnu.org/onlinedocs/gcc/). The quick jist is; that we need to make a shared library. gcc is a C complier cabale of makeing that library. The options, as usual are listed below.
+gcc or the GNU Compiler Collection is part of the GNU toolchain and includes front ends for C and C++. To learn more about it please go to their [homepage](https://gcc.gnu.org/onlinedocs/gcc/). The quick jist is, that we need to make a shared library. gcc is a C complier cabale of makeing that library. The options, as usual, are listed below.
 
 -x language: Specify explicitly the language for the following input files (rather than letting the compiler choose a default based on the file name suffix).
 
@@ -437,7 +437,7 @@ gcc or the GNU Compiler Collection is part of the GNU toolchain and includes fro
 
 -: Accept input from stdin.
 
-After that is a redirect. This symbol '\<\<' followed by the letters 'EOF' state that all lines following up to the next 'EOF' are the input for the gcc command. I honestly do no know enough C to explain all of the C code that follows, but the import line is 'system("id");'. That is the line we want to work with.
+After that is a redirect. This symbol '\<\<' followed by the letters 'EOF' state that all lines following up to the next 'EOF' are the input for the gcc command. I honestly do not know enough C to explain all of the C code that follows, but the import line is 'system("id");'. That is the line we want to work with.
 
 The library that is output, simply runs the id command. Once it is constructed, the library needs to be moved to the /opt/app/static/assets/images directoy. We do not have write permissons to the /opt/scripts directory. So, I simply moved to my home directory to build my exploit.
 

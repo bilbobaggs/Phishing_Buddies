@@ -437,7 +437,7 @@ gcc or the GNU Compiler Collection is part of the GNU toolchain and includes fro
 
 -: Accept input from stdin.
 
-After that is a redirect. This symbol '\<\<' followed by the letters 'EOF' state that all lines following up to the next 'EOF' are the input for the gcc command. I honestly do no know enough C to explain all of the C code that foolws, but the import line is 'system("id");'. That is the line we want to work with.
+After that is a redirect. This symbol '\<\<' followed by the letters 'EOF' state that all lines following up to the next 'EOF' are the input for the gcc command. I honestly do no know enough C to explain all of the C code that follows, but the import line is 'system("id");'. That is the line we want to work with.
 
 The library that is output, simply runs the id command. Once it is constructed, the library needs to be moved to the /opt/app/static/assets/images directoy. We do not have write permissons to the /opt/scripts directory. So, I simply moved to my home directory to build my exploit.
 

@@ -410,7 +410,7 @@ Let's look that guy up...
 
 [](https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8)
 
-That's the good stuff, now let's figure out what it's saying. Looks like there exsists 2 different ways to attempt an [exploit](https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8) with this binary. In order to know which option works on the first try, you'd have to be the one to build the command, or you have to have tried them already. The first option did not work for me, so I'll just skip to the second. Going off of the github, we need to make a shared library. That can be done with the following...
+That's the good stuff, now let's figure out what it's saying. Looks like there exsists 2 different ways to attempt [CVE-2024-41817](https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8) with this binary. In order to know which option works on the first try, you'd have to be the one to build the command, or you have to have tried them already. The first option did not work for me, so I'll just skip to the second. Going off of the github, we need to make a shared library. That can be done with the following...
 
 ```
 gcc -x c -shared -fPIC -o ./libxcb.so.1 - << EOF
@@ -425,7 +425,19 @@ __attribute__((constructor)) void init(){
 EOF
 ```
 
-Insert gcc explanation here.
+gcc or the GNU Compiler Collection is part of the GNU toolchain and includes front ends for C and C++. To learn more about it please go to their [homepage](https://gcc.gnu.org/onlinedocs/gcc/). The quick jist is; that we need to make a shared library. gcc is a C complier cabale of makeing that library. The options, as usual are listed below.
+
+-x language: Specify explicitly the language for the following input files (rather than letting the compiler choose a default based on the file name suffix).
+
+-shared: Produce a shared object which can then be linked with other objects to form an executable.
+
+-fPIC: If supported for the target machine, emit position-independent code, suitable for dynamic linking and avoiding any limit on the size of the global offset table.
+
+-o \<FILE_NAME>: Place the primary output in file file.
+
+-: Accept input from stdin.
+
+After that is a redirect. This symbol '\<\<' followed by the letters 'EOF' state that all lines following up to the next 'EOF' are the input for the gcc command. I honestly do no know enough C to explain all of the C code that foolws, but the import line is 'system("id");'. That is the line we want to work with.
 
 The library that is output, simply runs the id command. Once it is constructed, the library needs to be moved to the /opt/app/static/assets/images directoy. We do not have write permissons to the /opt/scripts directory. So, I simply moved to my home directory to build my exploit.
 

@@ -26,11 +26,17 @@ while count <= int(players):
 
 os.system('clear')
 for player in player_list:
+  player_name = " " + player.name + " "
+  name = f"|-{player_name:-^44}-|"
+  width = len(name)
   print("")
-  print(f"_________________________________")
-  print(f"| Name: {player.name} |--| Race: {player.race} |")
+  print(f"_" * width)
+  print(name)
+  player_race = " " + player.race + " "
+  census = f"|-| Race: {player_race:^12} |-| Subrace: Hill Dwarf |-|"
+  print(census)
   print(f"|   HP: {player.hit_points:2d} |--| Class: {player.job_class} |")
-  print("|---------------------------------|")
+  print(f"|" + ("-" * (width - 2)) + "|")
   print(f"| Cha Roll: {player.charisma:2d} |--| Mod: {player.charisma_save:2d} |")
   print(f"| Con Roll: {player.constitution:2d} |--| Mod: {player.constitution_save:2d} |")
   print(f"| Dex Roll: {player.dexterity:2d} |--| Mod: {player.dexterity_save:2d} |")

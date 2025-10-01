@@ -54,15 +54,27 @@ class_list = ["Barbarian","Bard","Cleric","Druid","Fighter","Monk","Paladin",
 race_list = ["Dragonborn","Dwarf","Elf","Gnome","Half-Elf","Half-Orc","Halfling",
              "Human","Tiefling"]
 
-racial_attributes = {"Dragonborn":[[1,0,0,0,2,0],"Medium",30],
-                     "Dwarf":[[0,2,0,0,0,0],"Medium",25],
-                     "Elf":[[0,0,2,0,0,0],"Medium",30],
-                     "Gnome":[[0,0,0,2,0,0],"Small",25],
-                     "Half-Elf":[[2,0,0,0,0,0],"Medium",30],
-                     "Half-Orc":[[1,0,0,0,2,0],"Medium",30],
-                     "Halfling":[[0,0,2,0,0,0],"Small",25],
-                     "Human":[[1,1,1,1,1,1],"Medium",30],
-                     "Tiefling":[[2,0,0,1,0,0],"Medium",30]}
+subrace_list = ["Base","Hill Dwarf","Moutain Dwarf","High Elf","Wood Elf",
+                "Dark Elf","Forest Gnome","Rock Gnome","Lightfoot","Stout"]
+
+racial_attributes = {"Dragonborn":{"Base":[[1,0,0,0,2,0],"Medium",30]},
+                     "Dwarf":{"Base":[[0,2,0,0,0,0],"Medium",25],
+                              "Hill Dwarf":[[0,2,0,0,0,1],"Medium",25],
+                              "Moutain Dwarf":[[0,2,0,0,2,0],"Medium",25]},
+                     "Elf":{"Base":[[0,0,2,0,0,0],"Medium",30],
+                            "High Elf":[[0,0,2,1,0,0],"Medium",30],
+                            "Wood Elf":[[0,0,2,0,0,1],"Medium",35],
+                            "Dark Elf":[[1,0,2,0,0,0],"Medium",30]},
+                     "Gnome":{"Base":[[0,0,0,2,0,0],"Small",25],
+                              "Forest Gnome":[[0,0,1,2,0,0],"Small",25],
+                              "Rock Gnome":[[0,1,0,2,0,0],"Small",25]},
+                     "Half-Elf":{"Base":[[2,0,0,0,0,0],"Medium",30]},
+                     "Half-Orc":{"Base":[[1,0,0,0,2,0],"Medium",30]},
+                     "Halfling":{"Base":[[0,0,2,0,0,0],"Small",25],
+                                 "Lightfoot":[[1,0,2,0,0,0],"Small",25],
+                                 "Stout":[[0,1,2,0,0,0],"Small",25]},
+                     "Human":{"Base":[[1,1,1,1,1,1],"Medium",30]},
+                     "Tiefling":{"Base":[[2,0,0,1,0,0],"Medium",30]}}
 
 barbarian_armor = armor_table[armor_catagories[0]] \
                   + armor_table[armor_catagories[1]] \
@@ -210,7 +222,7 @@ class_attributes = {"Barbarian":[12,barbarian_armor,barbarian_weapons,None,
                               3,ranger_skills],
                     "Rogue":[8,rogue_armor,rogue_weapons,None,rogue_saving,4,
                              rogue_skills],
-                    "Sorcer":[6,sorcerer_armor,sorcerer_weapons,None,
+                    "Sorcerer":[6,sorcerer_armor,sorcerer_weapons,None,
                               sorcerer_saving,2,sorcerer_skills],
                     "Warlock":[8,warlock_armor,warlock_weapons,None,
                                warlock_saving,2,warlock_skills],

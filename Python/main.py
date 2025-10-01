@@ -26,17 +26,21 @@ while count <= int(players):
 
 os.system('clear')
 for player in player_list:
-  player_name = " " + player.name + " "
-  name = f"|-{player_name:-^44}-|"
+  player_name = "| " + player.name + " |"
+  name = f"|-{player_name:-^57}-|"
   width = len(name)
   print("")
   print(f"_" * width)
   print(name)
-  player_race = " " + player.race + " "
-  census = f"|-| Race: {player_race:^12} |-| Subrace: Hill Dwarf |-|"
+  census = f"|--| Race: {player.race:^12} |-| Subrace: {player.subrace:^16} |-----|"
   print(census)
-  print(f"|   HP: {player.hit_points:2d} |--| Class: {player.job_class} |")
-  print(f"|" + ("-" * (width - 2)) + "|")
+  job_class_info = f"|-| Class: {player.job_class:^11} |-| Subclass: Way of the\
+ Open Hand |-|"
+  print(job_class_info)
+  stats = f"|-| AC: {player.armor_class:^3} |-| HP: {player.hit_points:^3} |-|\
+ Hit Die: d{player.hit_dice:^2d} |-| Level: {player.level:^2} |----|"
+  print(stats)
+  print(f"|" + ("#" * (width - 2)) + "|")
   print(f"| Cha Roll: {player.charisma:2d} |--| Mod: {player.charisma_save:2d} |")
   print(f"| Con Roll: {player.constitution:2d} |--| Mod: {player.constitution_save:2d} |")
   print(f"| Dex Roll: {player.dexterity:2d} |--| Mod: {player.dexterity_save:2d} |")

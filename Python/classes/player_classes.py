@@ -7,7 +7,8 @@ class player_character:
   def __init__(self, level, proficiency_bonus, name, race, job_class):
 
     race = pf.choose_player_race(race, name)
-    racial_profile = pf.adjust_racial_traits(race,ct.racial_attributes[race])
+    racial_attributes = ct.racial_attributes[race[0]][race[1]]
+    racial_profile = pf.adjust_racial_traits(race[0],race[1],racial_attributes)
     jclass = pf.choose_player_class(job_class)
     class_profile = ct.class_attributes[jclass]
     skill_proficiencies = pf.choose_skill_proficiencies(class_profile[5],\
@@ -18,7 +19,8 @@ class player_character:
 
     self.level = level
     self.proficiency_bonus = proficiency_bonus
-    self.race = race
+    self.race = race[0]
+    self.subrace = race[1]
     self.job_class = jclass
     self.name = pf.choose_player_name(name)
     self.hit_dice = class_profile[0]

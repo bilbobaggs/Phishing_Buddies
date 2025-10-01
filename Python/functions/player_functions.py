@@ -1,5 +1,6 @@
 
 import copy, os, random
+from game_tables import character_tables as ct
 
 def choose_player_race(race_list, player_name):
   for index, race in enumerate(race_list, start = 1):
@@ -12,22 +13,37 @@ def choose_player_race(race_list, player_name):
   if check != "Y" and check != "y":
     choose_player_race(race_list)
   os.system('clear')
-  return race_str
+  if race_str is race_list[1] or race_str is race_list[2] or race_str is race_list[3] or\
+      race_str is race_list[6]:
+    for index, subrace in enumerate(ct.racial_attributes[race_str].keys(),start=1):
+      print(f"  {index:2d} - {subrace}")
+    subrace = int(input(f"Please choose a subrace. [Base]: ") or 1) - 1
+    match race_str:
+      case "Elf":
+        subrace += 2
+      case "Gnome":
+        subrace += 5
+      case "Halfling":
+        subrace += 7
+  else:
+    subrace = 0
+  subrace_str = ct.subrace_list[subrace]
+  return race_str, subrace_str
 
-def adjust_racial_traits(race,racial_attributes):
-  speed = racial_attributes[2]
-  size = racial_attributes[1]
+def adjust_racial_traits(race,subrace,racial_attributes):
   charisma = racial_attributes[0][0]
   constitution = racial_attributes[0][1]
   dexterity = racial_attributes[0][2]
   intelligence = racial_attributes[0][3]
   strength = racial_attributes[0][4]
   wisdom = racial_attributes[0][5]
+  size = racial_attributes[1]
+  speed = racial_attributes[2]
   match race:
     case "Half-Elf":
       choice = 2
-      ability_list = ["Constitution","Dexterity","Intelligence","Strength",\
-          "Wisdom"]
+      ability_list = copy.deepcopy(gt.ability_list)
+      ability_list.remove(ability_list[0])
       choices = []
       while choice > 0:
         if choice > 1:
@@ -123,8 +139,7 @@ def roll_ability_scores():
   return rolls
 
 def assign_ability_rolls(ability_rolls):
-  ability_list = ["Charisma","Constitution","Dexterity","Intelligence",
-                  "Strength","Wisdom"]
+  ability_list = copy.deepcopy(ct.ability_list)
   for roll in ability_rolls:
     print(f"\nWhich ability will get the roll of {roll}.\n")
     for index, ability in enumerate(ability_list,start=1):

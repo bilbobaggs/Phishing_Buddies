@@ -10,7 +10,7 @@ class player_character:
     racial_attributes = ct.racial_attributes[race[0]][race[1]]
     racial_profile = pf.adjust_racial_traits(race[0],race[1],racial_attributes)
     jclass = pf.choose_player_class(job_class)
-    class_profile = ct.class_attributes[jclass]
+    class_profile = ct.class_attributes[jclass[0]]
     skill_proficiencies = pf.choose_skill_proficiencies(class_profile[5],\
         class_profile[6])
 
@@ -21,7 +21,9 @@ class player_character:
     self.proficiency_bonus = proficiency_bonus
     self.race = race[0]
     self.subrace = race[1]
-    self.job_class = jclass
+    self.job_class = jclass[0]
+    self.specialty_title = jclass[1]
+    self.job_specialty = jclass[2]
     self.name = pf.choose_player_name(name)
     self.hit_dice = class_profile[0]
     self.speed = racial_profile[2]

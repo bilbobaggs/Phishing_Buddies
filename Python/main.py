@@ -27,18 +27,20 @@ while count <= int(players):
 os.system('clear')
 for player in player_list:
   player_name = "| " + player.name + " |"
-  name = f"|-{player_name:-^57}-|"
+  name = f"|-{player_name:-^77}-|"
   width = len(name)
   print("")
   print(f"_" * width)
   print(name)
-  census = f"|--| Race: {player.race:^12} |-| Subrace: {player.subrace:^16} |-----|"
+  census = f"|--------| Race: {player.race:^12} |-------| Subrace: \
+      {player.subrace:^16} |-------|"
   print(census)
-  job_class_info = f"|-| Class: {player.job_class:^11} |-| Subclass: Way of the\
- Open Hand |-|"
+  job_class_info = f"|-| Class: {player.job_class:^11} |-| {\
+      player.specialty_title:^21}: {player.job_specialty:^27} |-|"
   print(job_class_info)
-  stats = f"|-| AC: {player.armor_class:^3} |-| HP: {player.hit_points:^3} |-|\
- Hit Die: d{player.hit_dice:^2d} |-| Level: {player.level:^2} |----|"
+  stats = f"|----| Armor Class: {player.armor_class:^3} |-| Hit Points: \
+{player.hit_points:^3} |-| Hit Die: d{player.hit_dice:^2d} |-| Level: \
+{player.level:^2} |----|"
   print(stats)
   print(f"|" + ("#" * (width - 2)) + "|")
   print(f"| Cha Roll: {player.charisma:2d} |--| Mod: {player.charisma_save:2d} |")

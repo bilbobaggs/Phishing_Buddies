@@ -42,7 +42,7 @@ def adjust_racial_traits(race,subrace,racial_attributes):
   match race:
     case "Half-Elf":
       choice = 2
-      ability_list = copy.deepcopy(gt.ability_list)
+      ability_list = copy.deepcopy(ct.ability_list)
       ability_list.remove(ability_list[0])
       choices = []
       while choice > 0:
@@ -87,7 +87,15 @@ def choose_player_class(job_class_list):
   if check != "Y" and check != "y":
     choose_player_class(job_class_list)
   os.system('clear')
-  return job_class_str
+  specialty_title = ct.class_specialties["Catagories"][job_class]
+  specialty_list = ct.class_specialties[job_class_str][ct.class_specialties[\
+      "Catagories"][job_class]]
+  for index, subclass in enumerate(specialty_list,start=1):
+    print(f" {index:2d} - {subclass}")
+  job_specialty_int = int(input(f"\nPlease choose a {specialty_title}: ")) - 1
+  job_specialty = ct.class_specialties[job_class_str][specialty_title]\
+      [job_specialty_int]
+  return job_class_str, specialty_title, job_specialty
 
 def choose_skill_proficiencies(number, skill_list):
   print("")

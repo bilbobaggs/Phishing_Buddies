@@ -4,9 +4,11 @@ ability_list = ["Charisma","Constitution","Dexterity","Intelligence","Strength",
 
 skill_list ={"Charisma":["Deception","Intimidation","Performance","Persuasion"],
              "Dexterity":["Acrobatics","Sleight of Hand","Stealth"],
-             "Intelligence":["Arcana","History","Investigation","Nature","Religion"],
+             "Intelligence":["Arcana","History","Investigation","Nature",\
+                 "Religion"],
              "Strength":["Athletics"],
-             "Wisdom":["Animal Handling","Insight","Medicine","Perception","Survival"]}
+             "Wisdom":["Animal Handling","Insight","Medicine","Perception",\
+                 "Survival"]}
 
 armor_catagories = ["Light Armor","Medium Armor","Heavy Armor","Shields"]
 
@@ -18,7 +20,8 @@ armor_table = {"Light Armor":["Padded","Leather","Studded Leather"],
 
 weapon_catagories = ["All","Martial Weapons","Melee","Ranged","Simple Weapons"]
 
-weapon_table = {"All":["Battleaxe","Blowgun","Club","Crossbow, Hand","Crossbow, Heavy",
+weapon_table = {"All":["Battleaxe","Blowgun","Club","Crossbow, Hand",\
+    "Crossbow, Heavy",
                   "Crossbow, Light","Dagger","Dart","Flail","Glaive","Greataxe",
                   "Greatclub","Greatsword","Halberd","Handaxe","Lance",
                   "Light Hammer","Longsword","Javelin","Mace","Maul",
@@ -32,7 +35,8 @@ weapon_table = {"All":["Battleaxe","Blowgun","Club","Crossbow, Hand","Crossbow, 
                               "Melee":["Club","Dagger","Greateclub","Handaxe",
                                        "Javelin","Light Hammer","Mace",
                                        "Quarterstaff","Sickle","Spear"],
-                              "Ranged":["Crossbow, Light","Dart","Shortbow","Sling"]},
+                              "Ranged":["Crossbow, Light","Dart","Shortbow",\
+                                  "Sling"]},
            "Simple Weapons":{"All":["Battleaxe","Blowgun","Crossbow, Hand",
                                     "Crossbow, Heavy","Flail","Glaive",
                                     "Greataxe","Greatsword","Halberd","Lance",
@@ -42,14 +46,55 @@ weapon_table = {"All":["Battleaxe","Blowgun","Club","Crossbow, Hand","Crossbow, 
                              "Melee":["Battleaxe","Flail","Glaive","Greataxe",
                                      "Greatsword","Halberd","Lance","Longsword",
                                      "Maul","Morningstar","Pike","Rapier",
-                                     "Scimitar","Shortsword","Trident","War Pick",
+                                     "Scimitar","Shortsword","Trident",\
+                                         "War Pick",
                                      "Warhammer","Whip"],
-                             "Ranged":["Blowgun","Crossbow, Hand","Crossbow, Heavy",
+                             "Ranged":["Blowgun","Crossbow, Hand",\
+                                 "Crossbow, Heavy",
                                       "Longbow","Net"]}}
 
 
 class_list = ["Barbarian","Bard","Cleric","Druid","Fighter","Monk","Paladin",
               "Ranger", "Rogue","Sorcerer","Warlock","Wizard"]
+
+class_specialties = {"Catagories":["Primal Path","Bard College","Devine Domain",
+                                   "Druid Circle","Martial Archtype",
+                                   "Monastic Tradition","Sacred Oath",
+                                   "Ranger Archtype","Roguish Archetype",
+                                   "Sorcerous Origin","Otherwordly Patron",
+                                   "Arcane Tradition"],
+                     "Barbarian":{"Primal Path":["Path of the Berserker",
+                                                  "Path of the Totem Warrior"]},
+                     "Bard":{"Bard College":["College of Lore",
+                                             "College of Valor"]},
+                     "Cleric":{"Devine Domain":["Knowledge Domain",
+                                                "Life Domain","Light Domain",
+                                                "Nature Domain","Tempest Domain",
+                                                "Trickery Domain","War Domain"]},
+                     "Druid":{"Druid Circle":["Circle of the Land",
+                                              "Circle of the Moon"]},
+                     "Fighter":{"Martial Archtype":["Champion","Battle Master",
+                                                     "Eldritch Knight"]},
+                     "Monk":{"Monastic Tradition":["Way of the Open Hand",
+                                                   "Way of the Shadow",
+                                                   "Way of the Four Elements"]},
+                     "Paladin":{"Sacred Oath":["Oath of Devotion",
+                                               "Oath of the Ancients",
+                                               "Oath of Vengeance"]},
+                     "Ranger":{"Ranger Archtype":["Hunter","Beast Master"]},
+                     "Rogue":{"Roguish Archetype":["Thief","Assassian",
+                                                   "Arcane Trickster"]},
+                     "Sorcerer":{"Sorcerous Origin":["Draconic Bloodline",
+                                                      "Wild Magic"]},
+                     "Warlock":{"Otherwordly Patron":["The Archfey","The Fiend"]},
+                     "Wizard":{"Arcane Tradition":["School of Abjuration",
+                                                   "School of Conjuration",
+                                                   "School of Enchantment",
+                                                   "School of Evocation",
+                                                   "School of Illusion",
+                                                   "School of Necromancy",
+                                                   "School of Transmutation"]}
+                     }
 
 race_list = ["Dragonborn","Dwarf","Elf","Gnome","Half-Elf","Half-Orc","Halfling",
              "Human","Tiefling"]
